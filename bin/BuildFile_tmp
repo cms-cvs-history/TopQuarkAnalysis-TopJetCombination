@@ -1,9 +1,0 @@
-<environment>
- <use name=AnalysisDataFormats/TopObjects>
- <use name=rootcintex>
- <use name=root>
- 
- <bin file="TtSemiBProbLR.cpp"> BprobLR calculator </bin>
- <bin file="TtSemiBJetSelectionLR.cpp"> BprobLR calculator </bin>
- <bin file="TtSemiBhadrSelectionLR.cpp"> Bhadr LR calculator </bin>
-</environment>
