@@ -102,7 +102,7 @@ int main() {
   // loop 1: fill signal and background contributions to S and B histograms
   // loop 2: fill calculated LR value for each signal or background contributions
   if(doJetCombLRObsLoop)    { doEventloop(1); myLRhelper -> makeAndFitSoverSplusBHists(); };
-  if(! doJetCombLRObsLoop)  myLRhelper -> readObsHistsAndFits(JetCombOutfileName);
+  if(! doJetCombLRObsLoop)  myLRhelper -> readObsHistsAndFits(JetCombOutfileName,false);
   if(doJetCombPurEffLoop)   { doEventloop(2); myLRhelper -> makeAndFitPurityHists(); };       
     
   // store histograms and fits in root-file
