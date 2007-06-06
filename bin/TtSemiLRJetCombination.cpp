@@ -29,7 +29,8 @@ using namespace std;
 
 //input files
 const  int       nrFiles  	  		= 1;
-const  TString   path     	  		= "/beo5/heyninck/CMSSW/src/TopQuarkAnalysis/TopEventProducers/test/TtSemiMuEvents_";
+const  TString   path     	  		= "/beo5/jmmaes/CMSSW/src/TopQuarkAnalysis/TopEventProducers/test/TtSemiMuEvents";
+//const  TString   path     	  		= "/beo5/pvmulder/CMSSW131CommonRootfiles/CMSSW131_CommonTopRootfiles_";
 
 //matching variables
 const  bool  	 useSpaceAngle    		= true;
@@ -40,23 +41,27 @@ const  bool  	 doJetCombLRObsLoop  		= true;
 const  bool  	 doJetCombPurEffLoop  		= true;
 
 //observable histogram variables
-const  int      nrJetCombObs  			= 2;
-const  int      JetCombObs[nrJetCombObs] 	= {1,3};
+const  int      nrJetCombObs  			= 7;
+const  int      JetCombObs[nrJetCombObs] 	= {1,2,3,4,5,6,7};
 const  int   	nrJetCombHistBins    		= 50;
-const  double   JetCombObsMin[nrJetCombObs]	= {0,0};
-const  double   JetCombObsMax[nrJetCombObs]	= {400,5};
+const  double   JetCombObsMin[nrJetCombObs]	= {0,0,0,0,0,-15,-6};
+const  double   JetCombObsMax[nrJetCombObs]	= {3,3.5,5,5,5,70,0};
+
 
 //observable fit functions
-const char*     JetCombObsFits[nrJetCombObs] 	= {            //sigmoind
-						     "landaun",	//obs0	
-						//     "[0]/(1 + 1/exp([1]*([2] - x)))",  //obs1	
-						     "[0]/(1 + 1/exp([1]*([2] - x)))"  //obs2	
-                                          	  };
+const char*     JetCombObsFits[nrJetCombObs] 	= {  "[0]/(1 + 1/exp([1]*([2] - x)))",  //obs1	
+						     "[0]/(1 + 1/exp([1]*([2] - x)))",  //obs2	
+						     "gaus",  //obs3
+						     "gaus", //obs4
+						     "gaus", //obs5
+						     "([0]+[3]*abs(x)/x)*(1-exp([1]*(abs(x)-[2])))",  //obs6	
+						     "[0]/(1 + 1/exp([1]*([2] - x)))",  //obs7
+						};
 
 //likelihood histogram variables
 const  int   	nrJetCombLRtotBins   		= 30;
-const  double 	JetCombLRtotMin   		= -10;
-const  double 	JetCombLRtotMax      		= -5;
+const  double 	JetCombLRtotMin   		= -5;
+const  double 	JetCombLRtotMax      		= 7;
 const  char* 	JetCombLRtotFitFunction      	= "[0]/(1 + 1/exp([1]*([2] - x)))";
 
 //output files ps/root
@@ -97,7 +102,14 @@ int main() {
   }
   myLRhelper = new LRHelpFunctions(obsNrs, nrJetCombHistBins, obsMin, obsMax, obsFits, 
                                    nrJetCombLRtotBins, JetCombLRtotMin, JetCombLRtotMax, JetCombLRtotFitFunction);
-  
+  vector<double> parsFobs6; 
+  parsFobs6.push_back(0.8);
+  parsFobs6.push_back(-0.1);
+  parsFobs6.push_back(-0.8);
+  parsFobs6.push_back(0.2);
+  myLRhelper -> setObsFitParameters(6,parsFobs6);
+
+
   // fill the histograms
   // loop 1: fill signal and background contributions to S and B histograms
   // loop 2: fill calculated LR value for each signal or background contributions
@@ -124,12 +136,14 @@ void doEventloop(int loop){
   cout<<endl<<endl<<"**** STARTING EVENT LOOP "<<loop<<" ****"<<endl;
   int okEvents = 0, totNrEv = 0;
   for (int nr = 1; nr <= nrFiles; nr++) {
-    TString ft = path; ft += nr-1; ft += ".root";
+   //TString ft = path; ft += nr-1; ft += ".root";
+   TString ft = path; ft += ".root";
     if (!gSystem->AccessPathName(ft)) {
       TFile *file = TFile::Open(ft);
       TTree * events = dynamic_cast<TTree*>( file->Get( "Events" ) );
       assert( events != 0 );
       TBranch * solsbranch = events->GetBranch( "TtSemiEvtSolutions_solutions__TtEventReco.obj" );
+      //TBranch * solsbranch = events->GetBranch( "TtSemiEvtSolutions_solutions__CommonBranchSel.obj" );
       assert( solsbranch != 0 );
       vector<TtSemiEvtSolution> sols;
       solsbranch->SetAddress( & sols );
@@ -174,10 +188,12 @@ void doEventloop(int loop){
 	  if(loop==2){
 	    if(sols[maxLogLRSol].getSumDeltaRjp()<SumAlphaCut && sols[maxLogLRSol].getMCCorrJetComb()==maxLogLRSol) {
 	      myLRhelper -> fillLRSignalHist(maxLogLRVal);
+	      //cout << "mxLR " << maxLogLRVal << endl;
 	    }
 	    else
 	    {
 	      myLRhelper -> fillLRBackgroundHist(maxLogLRVal);
+	      //cout << "mxLR (bg) " << maxLogLRVal << endl;
 	    }
 	  }
         }
@@ -190,6 +206,7 @@ void doEventloop(int loop){
     }
   }
   if(loop==1){
+    myLRhelper -> normalizeSandBhists();
     cout<<endl<<"***********************  STATISTICS  *************************"<<endl;
     cout<<" Probability that a correct jet combination exists:"<<endl;
     cout<<" (fraction events with ";
