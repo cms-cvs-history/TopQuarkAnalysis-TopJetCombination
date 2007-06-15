@@ -29,18 +29,14 @@ using namespace std;
 
 //input files
 const  int       nrFiles  	  		= 1;
-const  TString   path     	  		= "/beo5/jmmaes/CMSSW/src/TopQuarkAnalysis/TopEventProducers/test/TtSemiMuEvents";
-//const  TString   path     	  		= "/beo5/pvmulder/CMSSW131CommonRootfiles/CMSSW131_CommonTopRootfiles_";
+const  TString   path     	  		= "/beo5/heyninck/CMSSW/src/TopQuarkAnalysis/TopEventProducers/test/TtSemiMuEvents";
 
 //matching variables
 const  bool  	 useSpaceAngle    		= true;
 const  double 	 SumAlphaCut  	  		= 0.7;
 
-//loops to be executed
-const  bool  	 doJetCombLRObsLoop  		= true;
-const  bool  	 doJetCombPurEffLoop  		= true;
 
-//observable histogram variables
+//observable histogram variables (include all defined observables!!!)
 const  int      nrJetCombObs  			= 7;
 const  int      JetCombObs[nrJetCombObs] 	= {1,2,3,4,5,6,7};
 const  int   	nrJetCombHistBins    		= 50;
@@ -55,18 +51,12 @@ const char*     JetCombObsFits[nrJetCombObs] 	= {  "[0]/(1 + 1/exp([1]*([2] - x)
 						     "gaus", //obs4
 						     "gaus", //obs5
 						     "([0]+[3]*abs(x)/x)*(1-exp([1]*(abs(x)-[2])))",  //obs6	
-						     "[0]/(1 + 1/exp([1]*([2] - x)))",  //obs7
+						     "[0]/(1 + 1/exp([1]*([2] - x)))"  //obs7
 						};
 
-//likelihood histogram variables
-const  int   	nrJetCombLRtotBins   		= 30;
-const  double 	JetCombLRtotMin   		= -5;
-const  double 	JetCombLRtotMax      		= 7;
-const  char* 	JetCombLRtotFitFunction      	= "[0]/(1 + 1/exp([1]*([2] - x)))";
-
 //output files ps/root
-const  TString  JetCombOutfileName   		= "../data/TtSemiLRJetComb.root";
-const  TString  JetCombPSfile     		= "../data/TtSemiLRJetComb.ps";
+const  TString  JetCombOutfileName   		= "../data/TtSemiLRJetCombAllObs.root";
+const  TString  JetCombPSfile     		= "../data/TtSemiLRJetCombAllObs.ps";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +65,7 @@ const  TString  JetCombPSfile     		= "../data/TtSemiLRJetComb.ps";
 // Global variables
 //
 LRHelpFunctions *myLRhelper;
-void doEventloop(int);
+void doEventloop();
 vector<int> obsNrs;
 vector<double> obsMin,obsMax;
 vector<const char*> obsFits;
@@ -100,8 +90,8 @@ int main() {
     obsMax.push_back(JetCombObsMax[j]);
     obsFits.push_back(JetCombObsFits[j]);
   }
-  myLRhelper = new LRHelpFunctions(obsNrs, nrJetCombHistBins, obsMin, obsMax, obsFits, 
-                                   nrJetCombLRtotBins, JetCombLRtotMin, JetCombLRtotMax, JetCombLRtotFitFunction);
+  myLRhelper = new LRHelpFunctions(obsNrs, nrJetCombHistBins, obsMin, obsMax, obsFits); 
+  
   vector<double> parsFobs6; 
   parsFobs6.push_back(0.8);
   parsFobs6.push_back(-0.1);
@@ -110,13 +100,15 @@ int main() {
   myLRhelper -> setObsFitParameters(6,parsFobs6);
 
 
-  // fill the histograms
-  // loop 1: fill signal and background contributions to S and B histograms
-  // loop 2: fill calculated LR value for each signal or background contributions
-  if(doJetCombLRObsLoop)    { doEventloop(1); myLRhelper -> makeAndFitSoverSplusBHists(); };
-  if(! doJetCombLRObsLoop)  myLRhelper -> readObsHistsAndFits(JetCombOutfileName,false);
-  if(doJetCombPurEffLoop)   { doEventloop(2); myLRhelper -> makeAndFitPurityHists(); };       
-    
+  // fill signal and background contributions to S and B histograms
+  doEventloop(); 
+  
+  // normalize the S and B histograms to construct the pdf's
+  myLRhelper -> normalizeSandBhists();
+  
+  // produce and fit the S/S+N histograms
+  myLRhelper -> makeAndFitSoverSplusBHists();
+  
   // store histograms and fits in root-file
   myLRhelper -> storeToROOTfile(JetCombOutfileName);
      
@@ -132,8 +124,8 @@ int main() {
 // Loop over the events (with the definition of what is considered signal and background)
 //
 
-void doEventloop(int loop){ 
-  cout<<endl<<endl<<"**** STARTING EVENT LOOP "<<loop<<" ****"<<endl;
+void doEventloop(){ 
+  cout<<endl<<endl<<"**** STARTING EVENT LOOP ****"<<endl;
   int okEvents = 0, totNrEv = 0;
   for (int nr = 1; nr <= nrFiles; nr++) {
    //TString ft = path; ft += nr-1; ft += ".root";
@@ -143,7 +135,6 @@ void doEventloop(int loop){
       TTree * events = dynamic_cast<TTree*>( file->Get( "Events" ) );
       assert( events != 0 );
       TBranch * solsbranch = events->GetBranch( "TtSemiEvtSolutions_solutions__TtEventReco.obj" );
-      //TBranch * solsbranch = events->GetBranch( "TtSemiEvtSolutions_solutions__CommonBranchSel.obj" );
       assert( solsbranch != 0 );
       vector<TtSemiEvtSolution> sols;
       solsbranch->SetAddress( & sols );
@@ -154,46 +145,23 @@ void doEventloop(int loop){
         if((double)((totNrEv*1.)/1000.) == (double) (totNrEv/1000)) cout<< "  Processing event "<< totNrEv<<endl; 
         solsbranch->GetEntry( ev );
         if(sols.size()== 12){
-	  double maxLogLRVal = -999.;
-	  int    maxLogLRSol = -999;
 	  //loop over solutions
 	  for(int s=0; s<12; s++){
             // get observable values
 	    vector<double> obsVals;
 	    for(int j = 0; j < nrJetCombObs; j++){
-	      unsigned int o=0;
-	      while(sols[s].getLRCorrJetCombVar(o)>0){
-	        if(fabs(obsNrs[j]-sols[s].getLRCorrJetCombVar(o))<0.001) obsVals.push_back(sols[s].getLRCorrJetCombVal(o));
-	        ++o;
-	      }
+	      if( myLRhelper->obsFitIncluded((unsigned int)obsNrs[j]) ) obsVals.push_back(sols[s].getLRJetCombObsVal((unsigned int)obsNrs[j]));
 	    }
-	    if(loop==1){
-	      // Fill the observables for each jet combination
-	      // signal: best MC matching jet combination with a total sumDR of four jets lower than threshold 
-	      // background: all other solutions 
-	      if(sols[s].getSumDeltaRjp()<SumAlphaCut && sols[s].getMCCorrJetComb()==s) {
-	        myLRhelper -> fillToSignalHists(obsVals);
-	        ++okEvents;
-	      }
-	      else
-	      {
-	        myLRhelper -> fillToBackgroundHists(obsVals);
-	      }
-            }
-	    if(loop==2){
-	      double logLR =  myLRhelper -> calcLRval(obsVals);
-	      if(logLR>maxLogLRVal) { maxLogLRVal = logLR; maxLogLRSol = s; };
-	    }
-	  }
-	  if(loop==2){
-	    if(sols[maxLogLRSol].getSumDeltaRjp()<SumAlphaCut && sols[maxLogLRSol].getMCCorrJetComb()==maxLogLRSol) {
-	      myLRhelper -> fillLRSignalHist(maxLogLRVal);
-	      //cout << "mxLR " << maxLogLRVal << endl;
+	    // Fill the observables for each jet combination
+	    // signal: best MC matching jet combination with a total sumDR of four jets lower than threshold 
+	    // background: all other solutions 
+	    if(sols[s].getSumDeltaRjp()<SumAlphaCut && sols[s].getMCCorrJetComb()==s) {
+	      myLRhelper -> fillToSignalHists(obsVals);
+	      ++okEvents;
 	    }
 	    else
 	    {
-	      myLRhelper -> fillLRBackgroundHist(maxLogLRVal);
-	      //cout << "mxLR (bg) " << maxLogLRVal << endl;
+	      myLRhelper -> fillToBackgroundHists(obsVals);
 	    }
 	  }
         }
@@ -205,15 +173,12 @@ void doEventloop(int loop){
       cout<<ft<<" doesn't exist"<<endl;
     }
   }
-  if(loop==1){
-    myLRhelper -> normalizeSandBhists();
-    cout<<endl<<"***********************  STATISTICS  *************************"<<endl;
-    cout<<" Probability that a correct jet combination exists:"<<endl;
-    cout<<" (fraction events with ";
-    if(useSpaceAngle) cout<<"min SumAngle_jp < ";
-    if(!useSpaceAngle) cout<<"min DR_jp < ";
-    cout<<SumAlphaCut<<" )"<<endl;
-    cout<<endl<<"                 "<<(100.*okEvents)/(1.*totNrEv)<<" %"<<endl;
-    cout<<endl<<"******************************************************************"<<endl;
-  }
+  cout<<endl<<"***********************  STATISTICS  *************************"<<endl;
+  cout<<" Probability that a correct jet combination exists:"<<endl;
+  cout<<" (fraction events with ";
+  if(useSpaceAngle) cout<<"min SumAngle_jp < ";
+  if(!useSpaceAngle) cout<<"min DR_jp < ";
+  cout<<SumAlphaCut<<" )"<<endl;
+  cout<<endl<<"                 "<<(100.*okEvents)/(1.*totNrEv)<<" %"<<endl;
+  cout<<endl<<"******************************************************************"<<endl;
 }

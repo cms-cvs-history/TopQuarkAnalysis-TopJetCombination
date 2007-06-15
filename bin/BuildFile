@@ -5,5 +5,6 @@
  <use name=FWCore/Framework>
  <use name=rootcintex>
  <use name=root>
- <bin file="TtSemiLRJetCombination.cpp"> </bin>
+ <bin file="TtSemiLRJetComb_SoverSplusBLoop.cpp"> </bin>
+ <bin file="TtSemiLRJetComb_PurityLoop.cpp"> </bin>
 </environment>
