@@ -2,7 +2,7 @@
 // Author:  Jan Heyninck
 // Created: Tue Apr  3 17:33:23 PDT 2007
 //
-// $Id: TtSemiLRJetCombObservables.cc,v 1.6 2007/06/16 13:42:10 heyninck Exp $
+// $Id: TtSemiLRJetCombObservables.cc,v 1.6.8.1 2008/03/26 08:01:25 jmmaes Exp $
 //
 #include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiLRJetCombObservables.h"
 #include "PhysicsTools/Utilities/interface/DeltaR.h"
@@ -479,7 +479,7 @@ TtSemiLRJetCombObservables::operator() (TtSemiEvtSolution &solution, const edm::
   evtselectVarMatch.push_back(IntBoolPair(62, ((matchHadp&&matchHadq)||(matchHadpq&&matchHadqp))&&matchHadb&&matchLepb));
   
   float calJetsSumEt = 0;
-  for (int i = 4; i < jets->size(); i++) {
+  for (unsigned int i = 4; i < jets->size(); i++) {
     calJetsSumEt += (*jets)[i].p4().Et();
   }
   
