@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<MVATrainer>
+
+        <general>
+                <option name="id">TtSemiJetCombMVATrainer</option>
+                <option name="trainfiles">train_%1$s%2$s.%3$s</option>
+        </general>
+
+        <input id="input">
+                <var name="angleHadQQBar" multiple="false" optional="false"/>
+                <var name="angleHadWHadB" multiple="false" optional="false"/>
+                <var name="angleMuonLepB" multiple="false" optional="false"/>
+                <var name="angleTopTop"   multiple="false" optional="false"/>
+                <var name="mHadW"         multiple="false" optional="false"/>
+                <var name="mHadTop"       multiple="false" optional="false"/>
+                <var name="deltaMTopTop"  multiple="false" optional="false"/>
+        </input>
+
+        <processor id="norm" name="ProcNormalize">
+                <input>
+                        <var source="input" name="angleHadQQBar"/>
+                        <var source="input" name="angleHadWHadB"/>
+                        <var source="input" name="angleMuonLepB"/>
+                        <var source="input" name="angleTopTop"/>
+                        <var source="input" name="mHadW"/>
+                        <var source="input" name="mHadTop"/>
+                        <var source="input" name="deltaMTopTop"/>
+                </input>
+                <config>
+                        <pdf/>
+                        <pdf/>
+                        <pdf/>
+                        <pdf/>
+                        <pdf/>
+                        <pdf/>
+                        <pdf/>
+                </config>
+                <output>
+                        <var name="var1"/>
+                        <var name="var2"/>
+                        <var name="var3"/>
+                        <var name="var4"/>
+                        <var name="var5"/>
+                        <var name="var6"/>
+                        <var name="var7"/>
+                </output>
+        </processor>
+
+	<processor id="rot" name="ProcMatrix">
+		<input>
+                        <var source="norm" name="var1"/>
+                        <var source="norm" name="var2"/>
+                        <var source="norm" name="var3"/>
+                        <var source="norm" name="var4"/>
+                        <var source="norm" name="var5"/>
+                        <var source="norm" name="var6"/>
+                        <var source="norm" name="var7"/>
+		</input>
+		<config>
+			<fill signal="true" background="true"/>
+		</config>
+		<output>
+			<var name="rot1"/>
+			<var name="rot2"/>
+			<var name="rot3"/>
+			<var name="rot4"/>
+			<var name="rot5"/>
+			<var name="rot6"/>
+			<var name="rot7"/>
+		</output>
+	</processor>
+
+	<processor id="likelihood" name="ProcLikelihood">
+		<input>
+                        <var source="norm" name="var1"/>
+                        <var source="norm" name="var2"/>
+                        <var source="norm" name="var3"/>
+                        <var source="norm" name="var4"/>
+		</input>
+		<config>
+			<sigbkg smooth="3"/>
+			<sigbkg smooth="3"/>
+			<sigbkg smooth="3"/>
+			<sigbkg smooth="3"/>
+		</config>
+		<output>
+			<var name="discriminator"/>
+		</output>
+	</processor>
+
+        <output>
+                <var source="likelihood" name="discriminator"/>
+        </output>
+
+</MVATrainer>
