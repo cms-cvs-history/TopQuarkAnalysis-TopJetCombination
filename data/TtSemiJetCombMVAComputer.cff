@@ -1,0 +1,7 @@
+# include MVA computer cfi
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVAComputer.cfi"
+
+# provide mva training file
+  es_source = TtSemiJetCombMVAFileSource {
+    FileInPath ttSemiJetCombMVA = "TtSemiJetComb.mva"
+  }  
