@@ -1,7 +1,7 @@
 module trainTtSemiJetCombMVA = TtSemiJetCombMVATrainer{
   InputTag muons    = selectedLayer1TopMuons
   InputTag jets     = selectedLayer1TopJets
-  InputTag matching = topSemiLepMatchedJetQuartet
+  InputTag matching = jetPartonMatch
 
 # ------------------------------------------------
 # maximum number of jets to be considered
