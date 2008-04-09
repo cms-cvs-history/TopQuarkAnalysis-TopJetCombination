@@ -1,4 +1,4 @@
-module ttSemiJetCombMVA = TtSemiJetCombMVAComputer{
+module findTtSemiJetCombMVA = TtSemiJetCombMVAComputer{
   InputTag muons = selectedLayer1TopMuons
   InputTag jets  = selectedLayer1TopLJets
 
