@@ -2,13 +2,13 @@
 // Author:  Jan Heyninck
 // Created: Tue Apr  3 17:33:23 PDT 2007
 //
-// $Id: TtSemiLRJetCombObservables.cc,v 1.6.8.1 2008/03/26 08:01:25 jmmaes Exp $
+// $Id: TtSemiLRJetCombObservables.cc,v 1.6.8.2 2008/04/08 15:47:04 rwolf Exp $
 //
 #include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiLRJetCombObservables.h"
 #include "PhysicsTools/Utilities/interface/DeltaR.h"
 // #include "PhysicsTools/Utilities/interface/DeltaPhi.h"
 // #include "PhysicsTools/Utilities/interface/DeltaTheta.h"
-#include "AnalysisDataFormats/TopObjects/interface/TopJet.h"
+#include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/Math/interface/deltaPhi.h"
 #include "DataFormats/Common/interface/Handle.h"
 #include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
@@ -123,7 +123,7 @@ TtSemiLRJetCombObservables::operator() (TtSemiEvtSolution &solution, const edm::
 
   if(debug) cout << "== objects matched" <<endl;
 
-  Handle<vector<TopJet> > jets;
+  Handle<vector<pat::Jet> > jets;
   iEvent.getByLabel(jetSource_, jets);
 
   if(debug) cout << "== start calculating observables" << endl;
@@ -158,10 +158,10 @@ TtSemiLRJetCombObservables::operator() (TtSemiEvtSolution &solution, const edm::
 
   //obs6 : b-tagging information
   double Obs6 = 0;
-  if ( fabs(solution.getHadb().getBDiscriminator("trackCountingJetTags") +10) < 0.0001 || fabs(solution.getLepb().getBDiscriminator("trackCountingJetTags") +10)< 0.0001 ){
+  if ( fabs(solution.getHadb().bDiscriminator("trackCountingJetTags") +10) < 0.0001 || fabs(solution.getLepb().bDiscriminator("trackCountingJetTags") +10)< 0.0001 ){
     Obs6 = -10.;
   } else {
-    Obs6 = (solution.getHadb().getBDiscriminator("trackCountingJetTags")+solution.getLepb().getBDiscriminator("trackCountingJetTags"));
+    Obs6 = (solution.getHadb().bDiscriminator("trackCountingJetTags")+solution.getLepb().bDiscriminator("trackCountingJetTags"));
   }
   evtselectVarVal.push_back(IntDblPair(6,Obs6)); 
   evtselectVarMatch.push_back(IntBoolPair(6,1)); 
