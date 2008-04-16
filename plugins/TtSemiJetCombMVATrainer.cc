@@ -3,8 +3,8 @@
 #include "PhysicsTools/MVATrainer/interface/HelperMacros.h"
 #include "PhysicsTools/JetMCUtils/interface/combination.h"
 
-#include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiJetCombMVATrainer.h"
-#include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiJetCombEval.h"
+#include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiJetCombMVATrainer.h"
+#include "TopQuarkAnalysis/TopTools/interface/TtSemiJetCombEval.h"
 
 TtSemiJetCombMVATrainer::TtSemiJetCombMVATrainer(const edm::ParameterSet& cfg):
   muons_   (cfg.getParameter<edm::InputTag>("muons")),

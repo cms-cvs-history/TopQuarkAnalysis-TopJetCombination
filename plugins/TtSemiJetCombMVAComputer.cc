@@ -1,7 +1,7 @@
 #include "PhysicsTools/JetMCUtils/interface/combination.h"
 
-#include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiJetCombMVAComputer.h"
-#include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiJetCombEval.h"
+#include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiJetCombMVAComputer.h"
+#include "TopQuarkAnalysis/TopTools/interface/TtSemiJetCombEval.h"
 
 TtSemiJetCombMVAComputer::TtSemiJetCombMVAComputer(const edm::ParameterSet& cfg):
   muons_     (cfg.getParameter<edm::InputTag>("muons")),
