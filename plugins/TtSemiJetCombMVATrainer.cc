@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "TMath.h"
 
 #include "PhysicsTools/MVATrainer/interface/HelperMacros.h"
@@ -34,9 +36,13 @@ TtSemiJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup& s
   edm::Handle< std::vector<int> > matching;
   evt.getByLabel(matching_, matching);
 
-  for(unsigned int i = 0; i < matching->size(); ++i) {
-    if( (*(matching))[i] < 0) return;  // skip events that were affected by the outlier rejection in the jet-parton matching
-  }
+  // skip events that were affected by the outlier 
+  // rejection in the jet-parton matching
+  if( std::count(matching->begin(), matching->end(), -1)>0 )
+    return;
+
+  // skip events with no appropriate muon candidate in
+  if( muons->empty() ) return;
 
   math::XYZTLorentzVector muon = (*(muons->begin())).p4();
 
