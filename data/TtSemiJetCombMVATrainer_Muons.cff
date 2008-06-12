@@ -2,11 +2,11 @@
   include "TopQuarkAnalysis/TopEventProducers/data/TtSemiEvtJetPartonMatch.cfi"
 
 # include MVA trainer cfi
-  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVATrainer.cfi"
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVATrainer_Muons.cfi"
 
 # add module for mva save file
   module mvaTtSemiJetCombSaveFile = TtSemiJetCombMVASaveFile {
-    string ttSemiJetCombMVA = "TtSemiJetComb.mva"
+    string ttSemiJetCombMVA = "TtSemiJetComb_Muons.mva"
   }
 
 # add looper for different training processes
@@ -14,7 +14,7 @@
     VPSet trainers = {
       {
         string calibrationRecord = "ttSemiJetCombMVA"
-        untracked string trainDescription = "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVATrainer.xml"
+        untracked string trainDescription = "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVATrainer_Muons.xml"
         untracked bool loadState = false
         untracked bool saveState = true
         untracked bool monitoring= true

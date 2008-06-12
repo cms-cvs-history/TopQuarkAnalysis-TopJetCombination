@@ -1,5 +1,5 @@
 module trainTtSemiJetCombMVA = TtSemiJetCombMVATrainer{
-  InputTag muons    = selectedLayer1Muons
+  InputTag leptons  = selectedLayer1Muons
   InputTag jets     = selectedLayer1Jets
   InputTag matching = ttSemiEvtJetPartonMatch
 

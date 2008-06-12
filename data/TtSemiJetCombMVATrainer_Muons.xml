@@ -7,20 +7,20 @@
         </general>
 
         <input id="input">
-                <var name="angleHadQQBar" multiple="false" optional="false"/>
-                <var name="angleHadWHadB" multiple="false" optional="false"/>
-                <var name="angleMuonLepB" multiple="false" optional="false"/>
-                <var name="angleTopTop"   multiple="false" optional="false"/>
-                <var name="mHadW"         multiple="false" optional="false"/>
-                <var name="mHadTop"       multiple="false" optional="false"/>
-                <var name="deltaMTopTop"  multiple="false" optional="false"/>
+                <var name="angleHadQQBar"   multiple="false" optional="false"/>
+                <var name="angleHadWHadB"   multiple="false" optional="false"/>
+                <var name="angleLeptonLepB" multiple="false" optional="false"/>
+                <var name="angleTopTop"     multiple="false" optional="false"/>
+                <var name="mHadW"           multiple="false" optional="false"/>
+                <var name="mHadTop"         multiple="false" optional="false"/>
+                <var name="deltaMTopTop"    multiple="false" optional="false"/>
         </input>
 
         <processor id="norm" name="ProcNormalize">
                 <input>
                         <var source="input" name="angleHadQQBar"/>
                         <var source="input" name="angleHadWHadB"/>
-                        <var source="input" name="angleMuonLepB"/>
+                        <var source="input" name="angleLeptonLepB"/>
                         <var source="input" name="angleTopTop"/>
                         <var source="input" name="mHadW"/>
                         <var source="input" name="mHadTop"/>
