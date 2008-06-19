@@ -1,6 +1,3 @@
-# include partonMatch cfi
-  include "TopQuarkAnalysis/TopEventProducers/data/TtSemiEvtJetPartonMatch.cfi"
-
 # include MVA trainer cfi
   include "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVATrainer_Muons.cfi"
 
@@ -22,4 +19,4 @@
     }
   }
 
-  sequence makeMVATraining = { ttSemiEvtJetPartonMatch, trainTtSemiJetCombMVA, mvaTtSemiJetCombSaveFile }
+  sequence makeMVATraining = { trainTtSemiJetCombMVA, mvaTtSemiJetCombSaveFile }
