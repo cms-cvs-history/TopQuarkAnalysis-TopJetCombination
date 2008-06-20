@@ -9,4 +9,11 @@ module trainTtSemiJetCombMVA = TtSemiJetCombMVATrainer{
 # want to take all)
 # ------------------------------------------------
   int32 nJetsMax = 4
+
+# ------------------------------------------------
+# select semileptonic signal channel
+# (all others are taken as background for training)
+# 1: electron, 2: muon, 3: tau
+# ------------------------------------------------
+  int32 lepChannel = 2
 }
