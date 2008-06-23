@@ -8,4 +8,4 @@
 # include genMatch hypothesis cfi
   include "TopQuarkAnalysis/TopJetCombination/data/TtSemiHypothesisGenMatch.cfi"
 
-  sequence makeHypothesis_genMatch = { ttSemiJetPartonMatch, ttSemiHypothesis_genMatch }
+  sequence makeHypothesis_genMatch = { ttSemiJetPartonMatch, ttSemiHypothesisGenMatch }
