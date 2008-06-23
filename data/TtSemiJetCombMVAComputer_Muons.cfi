@@ -1,6 +1,6 @@
 module findTtSemiJetCombMVA = TtSemiJetCombMVAComputer{
-  InputTag leptons = selectedLayer1TopMuons
-  InputTag jets    = selectedLayer1TopLJets
+  InputTag leptons = selectedLayer1Muons
+  InputTag jets    = selectedLayer1Jets
 
 # -------------------------------------------------
 # maximum number of jets to be considered
