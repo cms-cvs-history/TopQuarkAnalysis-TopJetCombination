@@ -8,6 +8,4 @@ module findTtSemiJetCombMVA = TtSemiJetCombMVAComputer{
 # want to take all)
 # -------------------------------------------------
   int32 nJetsMax = 4
-
-  double discrimCut = 0.6
 }
