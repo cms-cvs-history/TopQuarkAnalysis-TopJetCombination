@@ -9,8 +9,7 @@
 TtSemiJetCombMVAComputer::TtSemiJetCombMVAComputer(const edm::ParameterSet& cfg):
   leptons_   (cfg.getParameter<edm::InputTag>("leptons")),
   jets_      (cfg.getParameter<edm::InputTag>("jets")),
-  nJetsMax_  (cfg.getParameter<int>("nJetsMax")),
-  discrimCut_(cfg.getParameter<double>("discrimCut"))
+  nJetsMax_  (cfg.getParameter<int>("nJetsMax"))
 {
   produces< std::vector<int> >();
 }
@@ -46,14 +45,14 @@ TtSemiJetCombMVAComputer::produce(edm::Event& evt, const edm::EventSetup& setup)
   
   double discrimMax =.0;
   std::vector<int> combiMax;
-  
+
   do{
     for(int cnt=0; cnt<TMath::Factorial(combiSize); ++cnt){
       if(combi[0] < combi[1]) {  // take into account indistinguishability 
 	                         // of the two jets from the hadr. W decay,
 	                         // reduces combinatorics by a factor of 2
 	TtSemiJetComb jetComb(*jets, combi, lepton);
-	
+
 	// get discriminator here
 	double discrim = evaluateTtSemiJetComb(mvaComputer, jetComb);
 	if(discrim > discrimMax) {
@@ -69,7 +68,7 @@ TtSemiJetCombMVAComputer::produce(edm::Event& evt, const edm::EventSetup& setup)
   std::auto_ptr< std::vector<int> > pOut(new std::vector<int>);
   for(unsigned int i=0; i<combi.size(); ++i) 
     pOut->push_back( combi[i] );
-  
+
   evt.put(pOut);
 }
 
