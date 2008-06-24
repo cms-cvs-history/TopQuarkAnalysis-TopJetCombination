@@ -1,0 +1,6 @@
+module ttSemiHypothesisGenMatch = TtSemiHypothesisGenMatch {
+  InputTag jets  = selectedLayer1Jets
+  InputTag leps  = selectedLayer1Muons
+  InputTag mets  = selectedLayer1METs
+  InputTag match = ttSemiJetPartonMatch
+}
