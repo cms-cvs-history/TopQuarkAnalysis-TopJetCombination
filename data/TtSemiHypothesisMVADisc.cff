@@ -1,0 +1,11 @@
+# 
+# production sequence of MVADisc hypothesis for semi-leptonic ttbar events
+#
+
+# include MVAComputer cff
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVAComputer_Muons.cff"
+
+# include MVADisc hypothesis cfi
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiHypothesisMVADisc.cfi"
+
+  sequence makeHypothesis_mvaDisc = { findTtSemiJetCombMVA, ttSemiHypothesisMVADisc }
