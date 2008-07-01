@@ -1,0 +1,8 @@
+module ttSemiHypothesisMaxSumPtWMass = TtSemiHypothesisMaxSumPtWMass {
+  InputTag jets  = selectedLayer1Jets
+  InputTag leps  = selectedLayer1Muons
+  InputTag mets  = selectedLayer1METs
+  InputTag match = ttSemiJetPartonMatch
+
+  uint32 maxNJets= 4
+}
