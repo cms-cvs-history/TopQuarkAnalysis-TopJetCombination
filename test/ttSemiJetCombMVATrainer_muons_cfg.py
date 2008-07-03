@@ -26,7 +26,7 @@ process.maxEvents = cms.untracked.PSet(
 
 ## configure process options
 process.options = cms.untracked.PSet(
-    wantSummary = cms.untracked.bool(True)
+    wantSummary = cms.untracked.bool(False)
 )
 
 #-------------------------------------------------
@@ -48,6 +48,10 @@ process.load("TopQuarkAnalysis.TopTools.TtSemiEvtJetPartonMatch_cfi")
 
 ## configure mva trainer
 process.load("TopQuarkAnalysis.TopJetCombination.TtSemiJetCombMVATrainer_Muons_cff")
+
+## make trainer looper known to the process
+from TopQuarkAnalysis.TopJetCombination.TtSemiJetCombMVATrainer_Muons_cff import looper
+process.looper = looper
 
 #-------------------------------------------------
 # process paths;
