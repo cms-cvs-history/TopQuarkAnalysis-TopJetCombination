@@ -16,7 +16,7 @@ TtSemiHypothesisMaxSumPtWMass::buildHypo(const edm::Handle<edm::View<reco::RecoC
 				    const edm::Handle<std::vector<pat::Jet> >& jets, 
 				    const edm::Handle<std::vector<int> >& match)
 {
-  if(jets->size()<maxNJets_ || maxNJets_<4){
+  if(leps->empty() || mets->empty() || jets->size()<maxNJets_ || maxNJets_<4){
     // create empty hypothesis
     return;
   }
