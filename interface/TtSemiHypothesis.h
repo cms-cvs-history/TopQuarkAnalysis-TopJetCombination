@@ -44,13 +44,15 @@ class TtSemiHypothesis : public edm::EDProducer {
 
   /// build the event hypothesis key
   virtual void buildKey() = 0;
-  /// build event hypothesis from the reco objects of a semi-leptonic event 
+  /// build event hypothesis from the reco objects of a semi-leptonic event
   virtual void buildHypo(const edm::Handle<edm::View<reco::RecoCandidate> >& lepton, 
 			 const edm::Handle<std::vector<pat::MET> >& neutrino, 
 			 const edm::Handle<std::vector<pat::Jet> >& jets, 
 			 const edm::Handle<std::vector<int> >& jetPartonAssociation) = 0;
 
  protected:
+
+  bool getMatch_;
 
   edm::InputTag jets_;
   edm::InputTag leps_;

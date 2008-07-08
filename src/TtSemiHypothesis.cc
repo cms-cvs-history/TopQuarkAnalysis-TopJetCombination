@@ -3,13 +3,18 @@
 
 
 TtSemiHypothesis::TtSemiHypothesis(const edm::ParameterSet& cfg):
-  jets_ (cfg.getParameter<edm::InputTag>("jets" )),
-  leps_ (cfg.getParameter<edm::InputTag>("leps" )),
-  mets_ (cfg.getParameter<edm::InputTag>("mets" )),
-  match_(cfg.getParameter<edm::InputTag>("match")),
+  jets_(cfg.getParameter<edm::InputTag>("jets")),
+  leps_(cfg.getParameter<edm::InputTag>("leps")),
+  mets_(cfg.getParameter<edm::InputTag>("mets")),
   lightQ_(0), lightQBar_(0), hadronicB_(0), 
   leptonicB_(0), neutrino_(0), lepton_(0)
 {
+  getMatch_ = false;
+  if(cfg.exists("match")) {
+    getMatch_ = true;
+    match_ = cfg.getParameter<edm::InputTag>("match");
+  }
+
   produces<reco::NamedCompositeCandidate>();
   produces<int>("Key");
 }
@@ -37,7 +42,7 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   evt.getByLabel(mets_, mets);
 
   edm::Handle<std::vector<int> > match;
-  evt.getByLabel(match_, match);
+  if(getMatch_) evt.getByLabel(match_, match);
 
   // feed out hyp
   std::auto_ptr<reco::NamedCompositeCandidate> pOut(new reco::NamedCompositeCandidate);
