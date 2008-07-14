@@ -1,5 +1,6 @@
 #include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiHypothesisGenMatch.h"
 
+#include "TopQuarkAnalysis/TopTools/interface/TtSemiEvtPartons.h"
 
 TtSemiHypothesisGenMatch::TtSemiHypothesisGenMatch(const edm::ParameterSet& cfg):
   TtSemiHypothesis( cfg ) { }
@@ -10,23 +11,23 @@ void
 TtSemiHypothesisGenMatch::buildHypo(const edm::Handle<edm::View<reco::RecoCandidate> >& leps, 
 				    const edm::Handle<std::vector<pat::MET> >& mets, 
 				    const edm::Handle<std::vector<pat::Jet> >& jets, 
-				    const edm::Handle<std::vector<int> >& match)
+				    std::vector<int>& match)
 {
   // -----------------------------------------------------
   // add jets; the order of match is Q, QBar, hadB, lepB
   // -----------------------------------------------------
-  for(unsigned idx=0; idx<match->size(); ++idx){    
-    if( isValid( (*match)[idx], jets) ){
-      edm::Ref<std::vector<pat::Jet> > ref=edm::Ref<std::vector<pat::Jet> >(jets, (*match)[idx]);
+  for(unsigned idx=0; idx<match.size(); ++idx){    
+    if( isValid(match[idx], jets) ){
+      edm::Ref<std::vector<pat::Jet> > ref=edm::Ref<std::vector<pat::Jet> >(jets, match[idx]);
       reco::ShallowCloneCandidate buffer(reco::CandidateBaseRef( ref ), ref->charge(), ref->p4(), ref->vertex());
       switch(idx){
-      case 0: 
+      case TtSemiEvtPartons::LightQ: 
 	lightQ_   = new reco::ShallowCloneCandidate( buffer ); break;
-      case 1: 
+      case TtSemiEvtPartons::LightQBar: 
 	lightQBar_= new reco::ShallowCloneCandidate( buffer ); break;
-      case 2: 
+      case TtSemiEvtPartons::HadB: 
 	hadronicB_= new reco::ShallowCloneCandidate( buffer ); break;
-      case 3: 
+      case TtSemiEvtPartons::LepB: 
 	leptonicB_= new reco::ShallowCloneCandidate( buffer ); break;
       }
     }

@@ -10,14 +10,14 @@ void
 TtSemiHypothesisMVADisc::buildHypo(const edm::Handle<edm::View<reco::RecoCandidate> >& leps, 
 				   const edm::Handle<std::vector<pat::MET> >& mets, 
 				   const edm::Handle<std::vector<pat::Jet> >& jets, 
-				   const edm::Handle<std::vector<int> >& match)
+				   std::vector<int>& match)
 {
   // -----------------------------------------------------
   // add jets; the order of match is Q, QBar, hadB, lepB
   // -----------------------------------------------------
-  for(unsigned idx=0; idx<match->size(); ++idx){    
-    if( isValid( (*match)[idx], jets) ){
-      edm::Ref<std::vector<pat::Jet> > ref=edm::Ref<std::vector<pat::Jet> >(jets, (*match)[idx]);
+  for(unsigned idx=0; idx<match.size(); ++idx){    
+    if( isValid(match[idx], jets) ){
+      edm::Ref<std::vector<pat::Jet> > ref=edm::Ref<std::vector<pat::Jet> >(jets, match[idx]);
       reco::ShallowCloneCandidate buffer(reco::CandidateBaseRef( ref ), ref->charge(), ref->p4(), ref->vertex());
       switch(idx){
       case 0: 

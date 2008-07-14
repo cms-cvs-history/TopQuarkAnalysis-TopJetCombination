@@ -17,6 +17,7 @@ TtSemiHypothesis::TtSemiHypothesis(const edm::ParameterSet& cfg):
 
   produces<reco::NamedCompositeCandidate>();
   produces<int>("Key");
+  produces<std::vector<int> >("Match");
 }
 
 TtSemiHypothesis::~TtSemiHypothesis()
@@ -41,8 +42,12 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   edm::Handle<std::vector<pat::MET> > mets;
   evt.getByLabel(mets_, mets);
 
-  edm::Handle<std::vector<int> > match;
-  if(getMatch_) evt.getByLabel(match_, match);
+  std::vector<int> match;
+  if(getMatch_) {
+    edm::Handle<std::vector<int> > matchHandle;
+    evt.getByLabel(match_, matchHandle);
+    match = *matchHandle;
+  }
 
   // feed out hyp
   std::auto_ptr<reco::NamedCompositeCandidate> pOut(new reco::NamedCompositeCandidate);
@@ -55,6 +60,12 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   buildKey();
   *pKey=key();
   evt.put(pKey, "Key");
+
+  // feed out match
+  std::auto_ptr<std::vector<int> > pMatch(new std::vector<int>);
+  for(unsigned int i=0; i<match.size(); ++i)
+    pMatch->push_back( match[i] );
+  evt.put(pMatch, "Match");
 }
 
 reco::NamedCompositeCandidate
@@ -70,8 +81,8 @@ TtSemiHypothesis::hypo()
 
   AddFourMomenta addFourMomenta;  
   // build up the top branch that decays leptonically
-  lepW  .addDaughter(*neutrino_, TtSemiDaughter::Nu     );
   lepW  .addDaughter(*lepton_,   TtSemiDaughter::Lep    );
+  lepW  .addDaughter(*neutrino_, TtSemiDaughter::Nu     );
   addFourMomenta.set( lepW );
   lepTop.addDaughter( lepW,      TtSemiDaughter::LepW   );
   lepTop.addDaughter(*leptonicB_,TtSemiDaughter::LepB   );
