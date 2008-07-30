@@ -71,9 +71,17 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
 reco::NamedCompositeCandidate
 TtSemiHypothesis::hypo()
 {
+  // -------------------------------------------------------------------------
+  // note that there is a persistency issue with 1612 were reflex classes are 
+  // inadequate for reco::RecoCandidate which is in the edm::View the generic 
+  // lepton. TtSemiHypotheses may only be made persistent when commenting the 
+  // leptonic branch o0f the hypothesis. This problem does not exist any more 
+  // in the 21X series
+  // -------------------------------------------------------------------------
+
   // check for sanity of the hypothesis
   if( !lightQ_ || !lightQBar_ || !hadronicB_ || 
-      !leptonicB_ || !neutrino_ || !lepton_ )
+      !leptonicB_ ||  !neutrino_ || !lepton_ )
     return reco::NamedCompositeCandidate();
   
   // setup transient references
