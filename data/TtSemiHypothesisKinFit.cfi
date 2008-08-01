@@ -1,0 +1,13 @@
+module ttSemiHypothesisKinFit = TtSemiHypothesisKinFit {
+  InputTag jets   = selectedLayer1Jets
+  InputTag leps   = selectedLayer1Muons
+  InputTag mets   = selectedLayer1METs
+  InputTag match  = kinFitTtSemiEvent
+  InputTag status = kinFitTtSemiEvent:Status
+  InputTag hadB   = kinFitTtSemiEvent:HadB
+  InputTag hadP   = kinFitTtSemiEvent:HadP
+  InputTag hadQ   = kinFitTtSemiEvent:HadQ
+  InputTag lepB   = kinFitTtSemiEvent:LepB
+  InputTag lepL   = kinFitTtSemiEvent:LepL
+  InputTag lepN   = kinFitTtSemiEvent:LepN
+}

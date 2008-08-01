@@ -1,6 +1,6 @@
-#include "PhysicsTools/CandUtils/interface/AddFourMomenta.h"
 #include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiHypothesis.h"
 
+#include "PhysicsTools/CandUtils/interface/AddFourMomenta.h"
 
 TtSemiHypothesis::TtSemiHypothesis(const edm::ParameterSet& cfg):
   jets_(cfg.getParameter<edm::InputTag>("jets")),
@@ -66,6 +66,14 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   for(unsigned int i=0; i<match.size(); ++i)
     pMatch->push_back( match[i] );
   evt.put(pMatch, "Match");
+}
+
+void
+TtSemiHypothesis::setCandidate(const edm::Handle<pat::Particle>& handle, reco::ShallowCloneCandidate* &clone)
+{
+  edm::RefProd<pat::Particle> ref=edm::RefProd<pat::Particle>( handle );
+  reco::ShallowCloneCandidate buffer(reco::CandidateBaseRef( ref ), ref->charge(), ref->p4(), ref->vertex());
+  clone = new reco::ShallowCloneCandidate( buffer );  
 }
 
 reco::NamedCompositeCandidate

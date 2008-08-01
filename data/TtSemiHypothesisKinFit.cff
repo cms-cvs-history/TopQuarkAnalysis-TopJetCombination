@@ -1,0 +1,11 @@
+# 
+# production sequence of kinFit hypothesis for semi-leptonic ttbar events
+#
+
+# include kinFit cfi
+  include "TopQuarkAnalysis/TopKinFitter/data/TtSemiKinFitProducer_Muons.cfi"
+
+# include kinFit hypothesis cfi
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiHypothesisKinFit.cfi"
+
+  sequence makeHypothesis_kinFit = { kinFitTtSemiEvent, ttSemiHypothesisKinFit }

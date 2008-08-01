@@ -11,6 +11,7 @@
 
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/MET.h"
+#include "DataFormats/PatCandidates/interface/Particle.h"
 #include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
 
 #include "DataFormats/Candidate/interface/CandidateWithRef.h"
@@ -30,7 +31,12 @@ class TtSemiHypothesis : public edm::EDProducer {
   
   /// produce the event hypothesis as NamedCompositeCandidate and Key
   virtual void produce(edm::Event&, const edm::EventSetup&);
-  /// return key
+  // use handle to one particle to set a ShallowCloneCandidate
+  void setCandidate(const edm::Handle<pat::Particle>&, reco::ShallowCloneCandidate*&);
+  // use one object in a collection to set a ShallowCloneCandidate
+  template <typename C>
+  void setCandidate(const edm::Handle<C>&, const int&, reco::ShallowCloneCandidate*&);
+  // return key
   int key() const { return key_; };
   /// return event hypothesis
   reco::NamedCompositeCandidate hypo();
@@ -46,8 +52,8 @@ class TtSemiHypothesis : public edm::EDProducer {
   virtual void buildKey() = 0;
   /// build event hypothesis from the reco objects of a semi-leptonic event
   virtual void buildHypo(edm::Event& event,
-			 const edm::Handle<edm::View<reco::RecoCandidate> >& lepton, 
-			 const edm::Handle<std::vector<pat::MET> >& neutrino, 
+			 const edm::Handle<edm::View<reco::RecoCandidate> >& lepton,
+			 const edm::Handle<std::vector<pat::MET> >& neutrino,
 			 const edm::Handle<std::vector<pat::Jet> >& jets, 
 			 std::vector<int>& jetPartonAssociation) = 0;
 
@@ -69,5 +75,15 @@ class TtSemiHypothesis : public edm::EDProducer {
   reco::ShallowCloneCandidate *neutrino_;
   reco::ShallowCloneCandidate *lepton_;
 };
+
+// unfortunately this has to be placed in the header since otherwise the function template
+// would cause unresolved references in classes derived from this base class
+template <typename C>
+void
+TtSemiHypothesis::setCandidate(const edm::Handle<C>& handle, const int& idx, reco::ShallowCloneCandidate* &clone) {
+  edm::Ref<C> ref=edm::Ref<C>( handle, idx );
+  reco::ShallowCloneCandidate buffer(reco::CandidateBaseRef( ref ), ref->charge(), ref->p4(), ref->vertex());
+  clone = new reco::ShallowCloneCandidate( buffer );
+}
 
 #endif
