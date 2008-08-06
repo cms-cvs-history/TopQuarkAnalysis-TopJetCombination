@@ -22,12 +22,9 @@ class TtSemiHypothesisKinFit : public TtSemiHypothesis  {
 			 std::vector<int>&);
 
   edm::InputTag status_;
-  edm::InputTag hadB_;
-  edm::InputTag hadP_;
-  edm::InputTag hadQ_;
-  edm::InputTag lepB_;
-  edm::InputTag lepL_;
-  edm::InputTag lepN_;
+  edm::InputTag partons_;
+  edm::InputTag leptons_;
+  edm::InputTag neutrinos_;
 
 };
 

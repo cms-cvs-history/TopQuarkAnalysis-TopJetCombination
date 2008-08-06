@@ -11,7 +11,6 @@
 
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/MET.h"
-#include "DataFormats/PatCandidates/interface/Particle.h"
 #include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
 
 #include "DataFormats/Candidate/interface/CandidateWithRef.h"
@@ -31,8 +30,6 @@ class TtSemiHypothesis : public edm::EDProducer {
   
   /// produce the event hypothesis as NamedCompositeCandidate and Key
   virtual void produce(edm::Event&, const edm::EventSetup&);
-  // use handle to one particle to set a ShallowCloneCandidate
-  void setCandidate(const edm::Handle<pat::Particle>&, reco::ShallowCloneCandidate*&);
   // use one object in a collection to set a ShallowCloneCandidate
   template <typename C>
   void setCandidate(const edm::Handle<C>&, const int&, reco::ShallowCloneCandidate*&);

@@ -68,14 +68,6 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   evt.put(pMatch, "Match");
 }
 
-void
-TtSemiHypothesis::setCandidate(const edm::Handle<pat::Particle>& handle, reco::ShallowCloneCandidate* &clone)
-{
-  edm::RefProd<pat::Particle> ref=edm::RefProd<pat::Particle>( handle );
-  reco::ShallowCloneCandidate buffer(reco::CandidateBaseRef( ref ), ref->charge(), ref->p4(), ref->vertex());
-  clone = new reco::ShallowCloneCandidate( buffer );  
-}
-
 reco::NamedCompositeCandidate
 TtSemiHypothesis::hypo()
 {
@@ -91,7 +83,7 @@ TtSemiHypothesis::hypo()
   if( !lightQ_ || !lightQBar_ || !hadronicB_ || 
       !leptonicB_ ||  !neutrino_ || !lepton_ )
     return reco::NamedCompositeCandidate();
-  
+
   // setup transient references
   reco::NamedCompositeCandidate hyp, hadTop, hadW, lepTop, lepW;
 
