@@ -61,6 +61,9 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   *pKey=key();
   evt.put(pKey, "Key");
 
+  // reset pointers
+  resetCandidates(); 
+
   // feed out match
   std::auto_ptr<std::vector<int> > pMatch(new std::vector<int>);
   for(unsigned int i=0; i<match.size(); ++i)
