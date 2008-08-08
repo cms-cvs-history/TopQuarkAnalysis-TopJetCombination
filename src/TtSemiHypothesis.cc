@@ -49,6 +49,9 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
     match = *matchHandle;
   }
 
+  // reset pointers
+  resetCandidates();
+
   // feed out hyp
   std::auto_ptr<reco::NamedCompositeCandidate> pOut(new reco::NamedCompositeCandidate);
   buildHypo(evt, leps, mets, jets, match);
@@ -61,15 +64,23 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   *pKey=key();
   evt.put(pKey, "Key");
 
-  // reset pointers
-  resetCandidates(); 
-
   // feed out match
   std::auto_ptr<std::vector<int> > pMatch(new std::vector<int>);
   for(unsigned int i=0; i<match.size(); ++i)
     pMatch->push_back( match[i] );
   evt.put(pMatch, "Match");
 }
+
+void
+TtSemiHypothesis::resetCandidates()
+{
+  lightQ_    = 0;
+  lightQBar_ = 0;
+  hadronicB_ = 0;
+  leptonicB_ = 0;
+  neutrino_  = 0;
+  lepton_    = 0;
+} 
 
 reco::NamedCompositeCandidate
 TtSemiHypothesis::hypo()

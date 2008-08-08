@@ -31,15 +31,7 @@ class TtSemiHypothesis : public edm::EDProducer {
   /// produce the event hypothesis as NamedCompositeCandidate and Key
   virtual void produce(edm::Event&, const edm::EventSetup&);
   /// reset candidate pointers before hypo build process
-  void resetCandidates()
-  {
-    lightQ_    = 0;
-    lightQBar_ = 0;
-    hadronicB_ = 0;
-    leptonicB_ = 0;
-    neutrino_  = 0;
-    lepton_    = 0;
-  } 
+  void resetCandidates();
   /// use one object in a collection to set a ShallowCloneCandidate
   template <typename C>
   void setCandidate(const edm::Handle<C>&, const int&, reco::ShallowCloneCandidate*&);
