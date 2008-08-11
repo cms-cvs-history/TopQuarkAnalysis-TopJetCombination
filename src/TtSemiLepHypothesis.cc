@@ -1,8 +1,8 @@
-#include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiHypothesis.h"
+#include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiLepHypothesis.h"
 
 #include "PhysicsTools/CandUtils/interface/AddFourMomenta.h"
 
-TtSemiHypothesis::TtSemiHypothesis(const edm::ParameterSet& cfg):
+TtSemiLepHypothesis::TtSemiLepHypothesis(const edm::ParameterSet& cfg):
   jets_(cfg.getParameter<edm::InputTag>("jets")),
   leps_(cfg.getParameter<edm::InputTag>("leps")),
   mets_(cfg.getParameter<edm::InputTag>("mets")),
@@ -20,7 +20,7 @@ TtSemiHypothesis::TtSemiHypothesis(const edm::ParameterSet& cfg):
   produces<std::vector<int> >("Match");
 }
 
-TtSemiHypothesis::~TtSemiHypothesis()
+TtSemiLepHypothesis::~TtSemiLepHypothesis()
 {
   if( lightQ_   ) delete lightQ_;
   if( lightQBar_) delete lightQBar_;
@@ -31,7 +31,7 @@ TtSemiHypothesis::~TtSemiHypothesis()
 }
 
 void
-TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
+TtSemiLepHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
 {
   edm::Handle<std::vector<pat::Jet> > jets;
   evt.getByLabel(jets_, jets);
@@ -72,7 +72,7 @@ TtSemiHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
 }
 
 void
-TtSemiHypothesis::resetCandidates()
+TtSemiLepHypothesis::resetCandidates()
 {
   lightQ_    = 0;
   lightQBar_ = 0;
@@ -83,14 +83,14 @@ TtSemiHypothesis::resetCandidates()
 } 
 
 reco::NamedCompositeCandidate
-TtSemiHypothesis::hypo()
+TtSemiLepHypothesis::hypo()
 {
   // -------------------------------------------------------------------------
   // note that there is a persistency issue with 1612 were reflex classes are 
   // inadequate for reco::RecoCandidate which is in the edm::View the generic 
-  // lepton. TtSemiHypotheses may only be made persistent when commenting the 
-  // leptonic branch o0f the hypothesis. This problem does not exist any more 
-  // in the 21X series
+  // lepton. TtSemiLepHypotheses may only be made persistent when commenting 
+  // the leptonic branch o0f the hypothesis. This problem does not exist any
+  // more in the 21X series
   // -------------------------------------------------------------------------
 
   // check for sanity of the hypothesis

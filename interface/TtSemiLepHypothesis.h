@@ -1,5 +1,5 @@
-#ifndef TtSemiHypothesis_h
-#define TtSemiHypothesis_h
+#ifndef TtSemiLepHypothesis_h
+#define TtSemiLepHypothesis_h
 
 #include <memory>
 #include <vector>
@@ -19,12 +19,12 @@
 #include "DataFormats/Candidate/interface/NamedCompositeCandidate.h"
 
 
-class TtSemiHypothesis : public edm::EDProducer {
+class TtSemiLepHypothesis : public edm::EDProducer {
 
  public:
 
-  explicit TtSemiHypothesis(const edm::ParameterSet&);
-  ~TtSemiHypothesis();
+  explicit TtSemiLepHypothesis(const edm::ParameterSet&);
+  ~TtSemiLepHypothesis();
 
  protected:
   
@@ -79,7 +79,7 @@ class TtSemiHypothesis : public edm::EDProducer {
 // would cause unresolved references in classes derived from this base class
 template <typename C>
 void
-TtSemiHypothesis::setCandidate(const edm::Handle<C>& handle, const int& idx, reco::ShallowCloneCandidate* &clone) {
+TtSemiLepHypothesis::setCandidate(const edm::Handle<C>& handle, const int& idx, reco::ShallowCloneCandidate* &clone) {
   edm::Ref<C> ref=edm::Ref<C>( handle, idx );
   reco::ShallowCloneCandidate buffer(reco::CandidateBaseRef( ref ), ref->charge(), ref->p4(), ref->vertex());
   clone = new reco::ShallowCloneCandidate( buffer );
