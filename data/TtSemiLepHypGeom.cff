@@ -1,0 +1,8 @@
+# 
+# production sequence of geometric hypothesis for semi-leptonic ttbar events
+#
+
+# include geometric hypothesis cfi
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepHypGeom.cfi"
+
+  sequence makeHypothesis_geom = { ttSemiLepHypGeom }

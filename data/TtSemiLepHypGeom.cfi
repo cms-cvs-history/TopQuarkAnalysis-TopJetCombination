@@ -1,6 +1,8 @@
-module ttSemiLepGenMatch = TtSemiLepGenMatch {
+module ttSemiLepHypGeom = TtSemiLepHypGeom {
   InputTag jets  = selectedLayer1Jets
   InputTag leps  = selectedLayer1Muons
   InputTag mets  = selectedLayer1METs
-  InputTag match = ttSemiJetPartonMatch
+
+  int32 maxNJets = 4
+  bool useDeltaR = true
 }

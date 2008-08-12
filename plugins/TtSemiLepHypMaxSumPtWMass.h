@@ -1,26 +1,31 @@
-#ifndef TtSemiLepMVADisc_h
-#define TtSemiLepMVADisc_h
+#ifndef TtSemiLepHypMaxSumPtWMass_h
+#define TtSemiLepHypMaxSumPtWMass_h
 
 #include "TopQuarkAnalysis/TopJetCombination/interface/TtSemiLepHypothesis.h"
 
 
-class TtSemiLepMVADisc : public TtSemiLepHypothesis  {
+class TtSemiLepHypMaxSumPtWMass : public TtSemiLepHypothesis  {
 
  public:
 
-  explicit TtSemiLepMVADisc(const edm::ParameterSet&);
-  ~TtSemiLepMVADisc();
+  explicit TtSemiLepHypMaxSumPtWMass(const edm::ParameterSet&);
+  ~TtSemiLepHypMaxSumPtWMass();
 
  private:
-  
+
   /// build the event hypothesis key
-  virtual void buildKey() { key_= TtSemiLeptonicEvent::kMVADisc; };  
+  virtual void buildKey() { key_= TtSemiLeptonicEvent::kMaxSumPtWMass; };  
   /// build event hypothesis from the reco objects of a semi-leptonic event 
   virtual void buildHypo(edm::Event&,
 			 const edm::Handle<edm::View<reco::RecoCandidate> >&,
 			 const edm::Handle<std::vector<pat::MET> >&,
 			 const edm::Handle<std::vector<pat::Jet> >&,
 			 std::vector<int>&);
+
+ private:
+
+  unsigned maxNJets_;
+  double wMass_;
 };
 
 #endif

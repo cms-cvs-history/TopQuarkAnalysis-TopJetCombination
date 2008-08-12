@@ -1,4 +1,4 @@
-module ttSemiLepKinFit = TtSemiLepKinFit {
+module ttSemiLepHypKinFit = TtSemiLepHypKinFit {
   InputTag jets   = selectedLayer1Jets
   InputTag leps   = selectedLayer1Muons
   InputTag mets   = selectedLayer1METs

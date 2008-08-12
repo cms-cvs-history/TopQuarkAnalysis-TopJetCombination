@@ -1,6 +1,8 @@
-module ttSemiLepMVADisc = TtSemiLepMVADisc {
+module ttSemiLepHypWMassMaxSumPt = TtSemiLepHypWMassMaxSumPt {
   InputTag jets  = selectedLayer1Jets
   InputTag leps  = selectedLayer1Muons
   InputTag mets  = selectedLayer1METs
-  InputTag match = findTtSemiJetCombMVA
+
+  uint32 maxNJets= 4
+  double wMass   = 80.413
 }

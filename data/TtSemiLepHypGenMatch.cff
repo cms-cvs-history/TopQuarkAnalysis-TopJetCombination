@@ -6,6 +6,6 @@
   include "TopQuarkAnalysis/TopTools/data/TtSemiEvtJetPartonMatch.cfi"
 
 # include genMatch hypothesis cfi
-  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepGenMatch.cfi"
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepHypGenMatch.cfi"
 
-  sequence makeHypothesis_genMatch = { ttSemiJetPartonMatch, ttSemiLepGenMatch }
+  sequence makeHypothesis_genMatch = { ttSemiJetPartonMatch, ttSemiLepHypGenMatch }

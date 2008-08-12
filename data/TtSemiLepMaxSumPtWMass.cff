@@ -1,8 +1,0 @@
-# 
-# production sequence of maxSumPtWMass hypothesis for semi-leptonic ttbar events
-#
-
-# include maxSumPtWMass hypothesis cfi
-  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepMaxSumPtWMass.cfi"
-
-  sequence makeHypothesis_maxSumPtWMass = { ttSemiLepMaxSumPtWMass }
