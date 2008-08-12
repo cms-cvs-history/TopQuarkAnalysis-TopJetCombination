@@ -1,0 +1,8 @@
+# 
+# production sequence of wMassMaxSumPt hypothesis for semi-leptonic ttbar events
+#
+
+# include wMassMaxSumPt hypothesis cfi
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepWMassMaxSumPt.cfi"
+
+  sequence makeHypothesis_wMassMaxSumPt = { ttSemiLepWMassMaxSumPt }
