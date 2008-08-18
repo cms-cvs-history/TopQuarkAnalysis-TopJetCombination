@@ -2,5 +2,5 @@ module ttSemiLepHypGenMatch = TtSemiLepHypGenMatch {
   InputTag jets  = selectedLayer1Jets
   InputTag leps  = selectedLayer1Muons
   InputTag mets  = selectedLayer1METs
-  InputTag match = ttSemiJetPartonMatch
+  InputTag match = ttSemiLepJetPartonMatch
 }

@@ -3,9 +3,9 @@
 #
 
 # include partonMatch cfi
-  include "TopQuarkAnalysis/TopTools/data/TtSemiEvtJetPartonMatch.cfi"
+  include "TopQuarkAnalysis/TopTools/data/TtSemiLepJetPartonMatch.cfi"
 
 # include genMatch hypothesis cfi
   include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepHypGenMatch.cfi"
 
-  sequence makeHypothesis_genMatch = { ttSemiJetPartonMatch, ttSemiLepHypGenMatch }
+  sequence makeHypothesis_genMatch = { ttSemiLepJetPartonMatch, ttSemiLepHypGenMatch }
