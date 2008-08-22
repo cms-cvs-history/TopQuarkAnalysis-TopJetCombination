@@ -55,7 +55,7 @@ process.load("TopQuarkAnalysis.TopEventProducers.producers.TtDecaySelection_cfi"
 process.ttDecaySelection.channel_1 = [0, 1, 0]
 
 ## configure jet parton matching
-process.load("TopQuarkAnalysis.TopTools.TtSemiEvtJetPartonMatch_cfi")
+process.load("TopQuarkAnalysis.TopTools.TtSemiLepJetPartonMatch_cfi")
 
 ## configure mva trainer
 process.load("TopQuarkAnalysis.TopJetCombination.TtSemiJetCombMVATrainer_Muons_cff")
@@ -72,7 +72,7 @@ process.looper = looper
 process.p0 = cms.Path(process.tqafLayer1 *
                       process.makeGenEvt *
                       process.ttDecaySelection *
-                      process.ttSemiJetPartonMatch)
+                      process.ttSemiLepJetPartonMatch)
 
 ## make mva training
 process.p1 = cms.Path(process.makeMVATraining)
