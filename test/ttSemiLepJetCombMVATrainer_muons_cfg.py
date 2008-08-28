@@ -58,10 +58,10 @@ process.ttDecaySelection.channel_1 = [0, 1, 0]
 process.load("TopQuarkAnalysis.TopTools.TtSemiLepJetPartonMatch_cfi")
 
 ## configure mva trainer
-process.load("TopQuarkAnalysis.TopJetCombination.TtSemiJetCombMVATrainer_Muons_cff")
+process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff")
 
 ## make trainer looper known to the process
-from TopQuarkAnalysis.TopJetCombination.TtSemiJetCombMVATrainer_Muons_cff import looper
+from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff import looper
 process.looper = looper
 
 #-------------------------------------------------
