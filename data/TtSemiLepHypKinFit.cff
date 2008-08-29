@@ -3,9 +3,9 @@
 #
 
 # include kinFit cfi
-  include "TopQuarkAnalysis/TopKinFitter/data/TtSemiKinFitProducer_Muons.cfi"
+  include "TopQuarkAnalysis/TopKinFitter/data/TtSemiLepKinFitProducer_Muons.cfi"
 
 # include kinFit hypothesis cfi
   include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepHypKinFit.cfi"
 
-  sequence makeHypothesis_kinFit = { kinFitTtSemiEvent, ttSemiLepHypKinFit }
+  sequence makeHypothesis_kinFit = { kinFitTtSemiLepEvent, ttSemiLepHypKinFit }

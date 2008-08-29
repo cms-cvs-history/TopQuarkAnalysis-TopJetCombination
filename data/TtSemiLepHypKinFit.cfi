@@ -2,9 +2,9 @@ module ttSemiLepHypKinFit = TtSemiLepHypKinFit {
   InputTag jets   = selectedLayer1Jets
   InputTag leps   = selectedLayer1Muons
   InputTag mets   = selectedLayer1METs
-  InputTag match  = kinFitTtSemiEvent
-  InputTag status = kinFitTtSemiEvent:Status
-  InputTag partons   = kinFitTtSemiEvent:Partons
-  InputTag leptons   = kinFitTtSemiEvent:Leptons
-  InputTag neutrinos = kinFitTtSemiEvent:Neutrinos
+  InputTag match  = kinFitTtSemiLepEvent
+  InputTag status = kinFitTtSemiLepEvent:Status
+  InputTag partons   = kinFitTtSemiLepEvent:Partons
+  InputTag leptons   = kinFitTtSemiLepEvent:Leptons
+  InputTag neutrinos = kinFitTtSemiLepEvent:Neutrinos
 }
