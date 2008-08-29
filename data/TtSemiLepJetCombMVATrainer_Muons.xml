@@ -2,7 +2,7 @@
 <MVATrainer>
 
         <general>
-                <option name="id">TtSemiJetCombMVATrainer</option>
+                <option name="id">TtSemiLepJetCombMVATrainer</option>
                 <option name="trainfiles">train_%1$s%2$s.%3$s</option>
         </general>
 

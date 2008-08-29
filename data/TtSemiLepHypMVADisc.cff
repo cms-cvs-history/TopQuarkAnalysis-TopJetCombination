@@ -3,9 +3,9 @@
 #
 
 # include MVAComputer cff
-  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiJetCombMVAComputer_Muons.cff"
+  include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepJetCombMVAComputer_Muons.cff"
 
 # include MVADisc hypothesis cfi
   include "TopQuarkAnalysis/TopJetCombination/data/TtSemiLepHypMVADisc.cfi"
 
-  sequence makeHypothesis_mvaDisc = { findTtSemiJetCombMVA, ttSemiLepHypMVADisc }
+  sequence makeHypothesis_mvaDisc = { findTtSemiLepJetCombMVA, ttSemiLepHypMVADisc }

@@ -2,5 +2,5 @@ module ttSemiLepHypMVADisc = TtSemiLepHypMVADisc {
   InputTag jets  = selectedLayer1Jets
   InputTag leps  = selectedLayer1Muons
   InputTag mets  = selectedLayer1METs
-  InputTag match = findTtSemiJetCombMVA
+  InputTag match = findTtSemiLepJetCombMVA
 }
