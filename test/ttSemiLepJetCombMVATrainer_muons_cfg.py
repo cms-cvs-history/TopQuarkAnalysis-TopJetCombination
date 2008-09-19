@@ -65,14 +65,17 @@ from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff imp
 process.looper = looper
 
 #-------------------------------------------------
-# process paths;
+# process paths
 #-------------------------------------------------
 
-## make jet parton match
+## make jet parton match and perform MVA training
 process.p0 = cms.Path(process.tqafLayer1 *
-                      process.makeGenEvt *
-                      process.ttDecaySelection *
-                      process.ttSemiLepJetPartonMatch)
+                      process.makeGenEvt)
 
-## make mva training
-process.p1 = cms.Path(process.makeMVATraining)
+## make jet parton match and perform MVA training
+process.p1 = cms.Path(process.ttDecaySelection *
+                      process.ttSemiLepJetPartonMatch *
+                      process.trainTtSemiLepJetCombMVA)
+
+## save result of the training
+process.p2 = cms.Path(process.mvaTtSemiLepJetCombSaveFile)
