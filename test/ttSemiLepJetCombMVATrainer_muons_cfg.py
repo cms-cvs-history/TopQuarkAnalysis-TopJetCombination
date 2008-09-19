@@ -68,7 +68,7 @@ process.looper = looper
 # process paths
 #-------------------------------------------------
 
-## make jet parton match and perform MVA training
+## produce tqafLayer1 and ttGenEvt
 process.p0 = cms.Path(process.tqafLayer1 *
                       process.makeGenEvt)
 
