@@ -21,7 +21,7 @@ process.source = cms.Source("PoolSource",
 
 ## define maximal number of events to loop over
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1000)
+    input = cms.untracked.int32(100)
 )
 
 ## configure process options
@@ -34,7 +34,7 @@ process.load("Configuration.StandardSequences.Geometry_cff")
 
 ## configure conditions
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
-process.GlobalTag.globaltag = cms.string('STARTUP_V4::All')
+process.GlobalTag.globaltag = cms.string('STARTUP_V7::All')
 
 ## load magnetic field
 process.load("Configuration.StandardSequences.MagneticField_cff")
@@ -45,7 +45,7 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 #-------------------------------------------------
 
 ## std sequence for tqaf layer1
-process.load("TopQuarkAnalysis.TopObjectProducers.tqafLayer1_full_cff")
+process.load("TopQuarkAnalysis.TopObjectProducers.tqafLayer1_cff")
 
 ## std sequence for ttGenEvent
 process.load("TopQuarkAnalysis.TopEventProducers.sequences.ttGenEvent_cff")
@@ -63,6 +63,11 @@ process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muon
 ## make trainer looper known to the process
 from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff import looper
 process.looper = looper
+
+## necessary fixes to run 2.2.X on 2.1.X data
+## comment this when running on samples produced with 22X
+from PhysicsTools.PatAlgos.tools.cmsswVersionTools import run22XonSummer08AODSIM
+run22XonSummer08AODSIM(process)
 
 #-------------------------------------------------
 # process paths
