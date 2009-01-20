@@ -59,6 +59,9 @@ process.load("TopQuarkAnalysis.TopTools.TtSemiLepJetPartonMatch_cfi")
 
 ## configure mva trainer
 process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff")
+## change maximum number of jets taken into account per event (default: 4)
+#process.ttSemiLepJetPartonMatch .maxNJets = 5
+#process.trainTtSemiLepJetCombMVA.maxNJets = process.ttSemiLepJetPartonMatch.maxNJets
 
 ## make trainer looper known to the process
 from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff import looper

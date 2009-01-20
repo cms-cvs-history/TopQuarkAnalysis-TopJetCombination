@@ -49,6 +49,8 @@ process.load("TopQuarkAnalysis.TopObjectProducers.tqafLayer1_cff")
 
 ## configure mva computer
 process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVAComputer_Muons_cff")
+## change maximum number of jets taken into account per event (default: 4)
+#process.findTtSemiLepJetCombMVA.maxNJets = 5
 
 ## necessary fixes to run 2.2.X on 2.1.X data
 ## comment this when running on samples produced with 22X
