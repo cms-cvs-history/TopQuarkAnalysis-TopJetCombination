@@ -34,8 +34,8 @@ class TtSemiLepJetCombMVAComputer : public edm::EDProducer {
   virtual void endJob();
 
   edm::InputTag leptons_;  
-  edm::InputTag mets_;
   edm::InputTag jets_;
+  edm::InputTag mets_;
 
   int maxNJets_;
   int maxNComb_;

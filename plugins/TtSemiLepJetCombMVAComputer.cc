@@ -10,7 +10,7 @@
 TtSemiLepJetCombMVAComputer::TtSemiLepJetCombMVAComputer(const edm::ParameterSet& cfg):
   leptons_ (cfg.getParameter<edm::InputTag>("leptons")),
   jets_    (cfg.getParameter<edm::InputTag>("jets")),
-  mets_      (cfg.getParameter<edm::InputTag>("mets")),
+  mets_    (cfg.getParameter<edm::InputTag>("mets")),
   maxNJets_(cfg.getParameter<int>("maxNJets")),
   maxNComb_(cfg.getParameter<int>("maxNComb"))
 {
