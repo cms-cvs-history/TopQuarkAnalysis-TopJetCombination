@@ -10,6 +10,7 @@
 TtSemiLepJetCombMVAComputer::TtSemiLepJetCombMVAComputer(const edm::ParameterSet& cfg):
   leptons_ (cfg.getParameter<edm::InputTag>("leptons")),
   jets_    (cfg.getParameter<edm::InputTag>("jets")),
+  mets_      (cfg.getParameter<edm::InputTag>("mets")),
   maxNJets_(cfg.getParameter<int>("maxNJets")),
   maxNComb_(cfg.getParameter<int>("maxNComb"))
 {
@@ -46,6 +47,14 @@ TtSemiLepJetCombMVAComputer::produce(edm::Event& evt, const edm::EventSetup& set
 
   edm::Handle< std::vector<pat::Jet> > jets;
   evt.getByLabel(jets_, jets);
+
+  edm::Handle< std::vector<pat::MET> > mets;
+  evt.getByLabel(mets_, mets);
+
+  const pat::MET *met = &(*mets)[0];
+
+  //skip events with no appropriate lepton candidate in
+  if( leptons->empty() ) return;
 
   unsigned int nPartons = 4;
 
@@ -84,8 +93,7 @@ TtSemiLepJetCombMVAComputer::produce(edm::Event& evt, const edm::EventSetup& set
       // reduces combinatorics by a factor of 2
       if(combi[TtSemiLepEvtPartons::LightQ] < combi[TtSemiLepEvtPartons::LightQBar]) {
 
-	TtSemiLepJetComb jetComb(*jets, combi, lepton);
-
+	TtSemiLepJetComb jetComb(*jets, combi, lepton, *met);
 	// get discriminator here
 	double discrim = evaluateTtSemiLepJetComb(mvaComputer, jetComb);
 
