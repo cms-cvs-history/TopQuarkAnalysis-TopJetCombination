@@ -8,197 +8,35 @@
 
         <input id="input">
 
-                <var name="massHadW"   							multiple="false" optional="false"/>
-                <var name="massHadTop"   							multiple="false" optional="false"/>
-                <var name="massLepW"   							multiple="false" optional="false"/>
-                <var name="massLepTop"   							multiple="false" optional="false"/>
-                <var name="PtHadTop"   							multiple="false" optional="false"/>
-                <var name="EtaHadTop"   						multiple="false" optional="false"/>
-                <var name="PhiHadTop" 							multiple="false" optional="false"/>
-                <var name="ThetaHadTop"     				multiple="false" optional="false"/>
-                <var name="PtLepTop"           			multiple="false" optional="false"/>
-                <var name="EtaLepTop"         			multiple="false" optional="false"/>
-                <var name="PhiLepTop"    						multiple="false" optional="false"/>
-                <var name="ThetaLepTop"    					multiple="false" optional="false"/>
-                <var name="PtHadW"           				multiple="false" optional="false"/>
-                <var name="EtaHadW"         				multiple="false" optional="false"/>
-                <var name="PhiHadW"   				 			multiple="false" optional="false"/>
-                <var name="ThetaHadW"    						multiple="false" optional="false"/>
-                <var name="PtLepW"           				multiple="false" optional="false"/>
-                <var name="EtaLepW"         				multiple="false" optional="false"/>
-                <var name="PhiLepW"    							multiple="false" optional="false"/>
-                <var name="ThetaLepW"    						multiple="false" optional="false"/>
-                <var name="PtHadb"           				multiple="false" optional="false"/>
-                <var name="EtaHadb"         				multiple="false" optional="false"/>
-                <var name="PhiHadb"    							multiple="false" optional="false"/>
-                <var name="ThetaHadb"    						multiple="false" optional="false"/>
-                <var name="PtLepb"           				multiple="false" optional="false"/>
-                <var name="EtaLepb"         				multiple="false" optional="false"/>
-                <var name="PhiLepb"    							multiple="false" optional="false"/>
-                <var name="ThetaLepb"    						multiple="false" optional="false"/>
-                <var name="Pthadq"           				multiple="false" optional="false"/>
-                <var name="Etahadq"         				multiple="false" optional="false"/>
-                <var name="Phihadq"    							multiple="false" optional="false"/>
-                <var name="Thetahadq"    						multiple="false" optional="false"/>
-                <var name="PthadqBar"           		multiple="false" optional="false"/>
-                <var name="EtahadqBar"    			    multiple="false" optional="false"/>
-                <var name="PhihadqBar"    					multiple="false" optional="false"/>
-                <var name="ThetahadqBar"    				multiple="false" optional="false"/>
-                <var name="Ptlepton"           			multiple="false" optional="false"/>
-                <var name="Etalepton"         			multiple="false" optional="false"/>
-                <var name="Philepton"    						multiple="false" optional="false"/>
-                <var name="Thetalepton"    					multiple="false" optional="false"/>
-                <var name="Ptneutrino"           		multiple="false" optional="false"/>
-                <var name="Etaneutrino"         		multiple="false" optional="false"/>
-                <var name="Phineutrino"    					multiple="false" optional="false"/>
-                <var name="Thetaneutrino"    				multiple="false" optional="false"/>
-                <var name="DeltaRHadTopLepTop"           			multiple="false" optional="false"/>
-                <var name="DeltaPhiHadTopLepTop"         			multiple="false" optional="false"/>
-                <var name="DeltaThetaHadTopLepTop"         			multiple="false" optional="false"/>
-                <var name="DeltaMassHadTopLepTop"         			multiple="false" optional="false"/>
-                <var name="DeltaRHadTopHadW"    				multiple="false" optional="false"/>
-                <var name="DeltaPhiHadTopHadW"    			multiple="false" optional="false"/>
-                <var name="DeltaThetaHadTopHadW"        multiple="false" optional="false"/>
-                <var name="DeltaRLepTopLepW"         		multiple="false" optional="false"/>
-                <var name="DeltaPhiLepTopLepW"    			multiple="false" optional="false"/>
-                <var name="DeltaThetaLepTopLepW"    		multiple="false" optional="false"/>
-                <var name="DeltaRHadTopHadb"           	multiple="false" optional="false"/>
-                <var name="DeltaPhiHadTopHadb"         	multiple="false" optional="false"/>
-                <var name="DeltaThetaHadTopHadb"    		multiple="false" optional="false"/>
-                <var name="DeltaRLepTopLepb"    				multiple="false" optional="false"/>
-                <var name="DeltaPhiLepTopLepb"          multiple="false" optional="false"/>
-                <var name="DeltaThetaLepTopLepb"        multiple="false" optional="false"/>
-                <var name="DeltaRHadWHadb"    					multiple="false" optional="false"/>
-                <var name="DeltaPhiHadWHadb"    				multiple="false" optional="false"/>
-                <var name="DeltaThetaHadWHadb"           		multiple="false" optional="false"/>
-                <var name="DeltaRLepWLepb"         		multiple="false" optional="false"/>
-                <var name="DeltaPhiLepWLepb"    			multiple="false" optional="false"/>
-                <var name="DeltaThetaLepWLepb"    				multiple="false" optional="false"/>
-                <var name="DeltaRHadQHadQBar"         multiple="false" optional="false"/>
-                <var name="DeltaPhiHadQHadQBar"         	multiple="false" optional="false"/>
-                <var name="DeltaThetaHadQHadQBar"    		multiple="false" optional="false"/>
-                <var name="DeltaRLepToplepton"    	multiple="false" optional="false"/>
-                <var name="DeltaPhiLepToplepton"       	multiple="false" optional="false"/>
-                <var name="DeltaThetaLepToplepton"      multiple="false" optional="false"/>
-                <var name="DeltaRLepTopneutrino"    multiple="false" optional="false"/>
-                <var name="DeltaPhiLepTopneutrino"    				multiple="false" optional="false"/>
-                <var name="DeltaThetaLepTopneutrino"          multiple="false" optional="false"/>
-                <var name="DeltaRLepblepton"         	multiple="false" optional="false"/>
-                <var name="DeltaPhiLepblepton"    		multiple="false" optional="false"/>
-                <var name="DeltaThetaLepblepton"    	multiple="false" optional="false"/>
-                <var name="DeltaRLepbneutrino"        multiple="false" optional="false"/>
-                <var name="DeltaPhiLepbneutrino"      multiple="false" optional="false"/>
-                <var name="DeltaThetaLepbneutrino"    multiple="false" optional="false"/>
-                <var name="DeltaRleptonneutrino"    multiple="false" optional="false"/>
-                <var name="DeltaPhileptonneutrino"    multiple="false" optional="false"/>
-                <var name="DeltaThetaleptonneutrino"    multiple="false" optional="false"/>
-                <var name="DeltaBtag1hadBlepB"    multiple="false" optional="false"/>
-                <var name="DeltaBtag2hadBlepB"    multiple="false" optional="false"/>
-                <var name="DeltaBtag3hadBlepB"    multiple="false" optional="false"/>
-                <var name="DeltaBtag4hadBlepB"    multiple="false" optional="false"/>
-                <var name="DeltaBtag5hadBlepB"    multiple="false" optional="false"/>
-                <var name="DeltaBtag6hadBlepB"    multiple="false" optional="false"/>
-
+                <var name="deltaThetaHadQHadQBar"   	multiple="false" optional="false"/>
+                <var name="deltaThetaHadWHadB"   	multiple="false" optional="false"/>
+                <var name="deltaRLepBLepton"   		multiple="false" optional="false"/>
+                <var name="deltaThetaHadTopLepTop"   	multiple="false" optional="false"/>
+                <var name="massHadW"   			multiple="false" optional="false"/>
+                <var name="massHadTop"   		multiple="false" optional="false"/>
+                <var name="massLepW"   			multiple="false" optional="false"/>
+                <var name="massLepTop"   		multiple="false" optional="false"/>
+                <var name="deltaMassHadTopLepTop"   	multiple="false" optional="false"/>
+                <var name="sumBTag1HadBLepB"   		multiple="false" optional="false"/>
 
         </input>
 
         <processor id="norm" name="ProcNormalize">
                 <input>
 
-         	<var source="input" name="massHadW"/>   							
-         	<var source="input" name="massHadTop"/>   							
-         	<var source="input" name="massLepW"/>   							
-         	<var source="input" name="massLepTop"/>   							
-         	<var source="input" name="PtHadTop"/>   							
-         	<var source="input" name="EtaHadTop"/>   							
-         	<var source="input" name="PhiHadTop"/>   							
-         	<var source="input" name="ThetaHadTop"/>   							
-         	<var source="input" name="PtLepTop"/>   							
-         	<var source="input" name="EtaLepTop"/>   							
-         	<var source="input" name="PhiLepTop"/>   							
-         	<var source="input" name="ThetaLepTop"/>   							
-         	<var source="input" name="PtHadW"/>   							
-         	<var source="input" name="EtaHadW"/>   							
-         	<var source="input" name="PhiHadW"/>   							
-         	<var source="input" name="ThetaHadW"/>   							
-         	<var source="input" name="PtLepW"/>   							
-         	<var source="input" name="EtaLepW"/>   							
-         	<var source="input" name="PhiLepW"/>   							
-         	<var source="input" name="ThetaLepW"/>   							
-         	<var source="input" name="PtHadb"/>   							
-         	<var source="input" name="EtaHadb"/>   							
-         	<var source="input" name="PhiHadb"/>   							
-         	<var source="input" name="ThetaHadb"/>   							
-         	<var source="input" name="PtLepb"/>   							
-         	<var source="input" name="EtaLepb"/>   							
-         	<var source="input" name="PhiLepb"/>   							
-         	<var source="input" name="ThetaLepb"/>   							
-         	<var source="input" name="Pthadq"/>   							
-         	<var source="input" name="Etahadq"/>   							
-         	<var source="input" name="Phihadq"/>   							
-         	<var source="input" name="Thetahadq"/>   							
-         	<var source="input" name="PthadqBar"/>   							
-         	<var source="input" name="EtahadqBar"/>   							
-         	<var source="input" name="PhihadqBar"/>   							
-         	<var source="input" name="ThetahadqBar"/>   							
-         	<var source="input" name="Ptlepton"/>   							
-         	<var source="input" name="Etalepton"/>   							
-         	<var source="input" name="Philepton"/>   							
-         	<var source="input" name="Thetalepton"/>   							
-         	<var source="input" name="Ptneutrino"/>   							
-         	<var source="input" name="Etaneutrino"/>   							
-         	<var source="input" name="Phineutrino"/>   							
-         	<var source="input" name="Thetaneutrino"/>   							
-         	<var source="input" name="DeltaRHadTopLepTop"/>   							
-         	<var source="input" name="DeltaPhiHadTopLepTop"/>   							
-         	<var source="input" name="DeltaThetaHadTopLepTop"/>   							
-         	<var source="input" name="DeltaMassHadTopLepTop"/>   							
-         	<var source="input" name="DeltaRHadTopHadW"/>   							
-         	<var source="input" name="DeltaPhiHadTopHadW"/>   							
-         	<var source="input" name="DeltaThetaHadTopHadW"/>   							
-         	<var source="input" name="DeltaRLepTopLepW"/>   							
-         	<var source="input" name="DeltaPhiLepTopLepW"/>   							
-         	<var source="input" name="DeltaThetaLepTopLepW"/>   							
-         	<var source="input" name="DeltaRHadTopHadb"/>   							
-         	<var source="input" name="DeltaPhiHadTopHadb"/>   							
-         	<var source="input" name="DeltaThetaHadTopHadb"/>   							
-         	<var source="input" name="DeltaRLepTopLepb"/>   							
-         	<var source="input" name="DeltaPhiLepTopLepb"/>   							
-         	<var source="input" name="DeltaThetaLepTopLepb"/>   							
-         	<var source="input" name="DeltaRHadWHadb"/>   							
-         	<var source="input" name="DeltaPhiHadWHadb"/>   							
-         	<var source="input" name="DeltaThetaHadWHadb"/>   							
-         	<var source="input" name="DeltaRLepWLepb"/>   							
-         	<var source="input" name="DeltaPhiLepWLepb"/>   							
-         	<var source="input" name="DeltaThetaLepWLepb"/>   							
-         	<var source="input" name="DeltaRHadQHadQBar"/>   							
-         	<var source="input" name="DeltaPhiHadQHadQBar"/>   							
-         	<var source="input" name="DeltaThetaHadQHadQBar"/>   							
-         	<var source="input" name="DeltaRLepToplepton"/>   							
-         	<var source="input" name="DeltaPhiLepToplepton"/>   							
-         	<var source="input" name="DeltaThetaLepToplepton"/>   							
-         	<var source="input" name="DeltaRLepTopneutrino"/>   							
-         	<var source="input" name="DeltaPhiLepTopneutrino"/>   							
-         	<var source="input" name="DeltaThetaLepTopneutrino"/>   							
-         	<var source="input" name="DeltaRLepblepton"/>   							
-         	<var source="input" name="DeltaPhiLepblepton"/>   							
-         	<var source="input" name="DeltaThetaLepblepton"/>   							
-         	<var source="input" name="DeltaRLepbneutrino"/>   							
-         	<var source="input" name="DeltaPhiLepbneutrino"/>   							
-         	<var source="input" name="DeltaThetaLepbneutrino"/>   							
-         	<var source="input" name="DeltaRleptonneutrino"/>   							
-         	<var source="input" name="DeltaPhileptonneutrino"/>   							
-         	<var source="input" name="DeltaThetaleptonneutrino"/>   							
-         	<var source="input" name="DeltaBtag1hadBlepB"/>   							
-        	<var source="input" name="DeltaBtag2hadBlepB"/>   							
-        	<var source="input" name="DeltaBtag3hadBlepB"/>   							
-        	<var source="input" name="DeltaBtag4hadBlepB"/>   							
-        	<var source="input" name="DeltaBtag5hadBlepB"/>   							
-        	<var source="input" name="DeltaBtag6hadBlepB"/>   							
-  
+                 	<var source="input" name="deltaThetaHadQHadQBar"/>   							
+                 	<var source="input" name="deltaThetaHadWHadB"/>   							
+                 	<var source="input" name="deltaRLepBLepton"/>   							
+                 	<var source="input" name="deltaThetaHadTopLepTop"/>							
+                 	<var source="input" name="massHadW"/>   							
+                 	<var source="input" name="massHadTop"/>   							
+                 	<var source="input" name="massLepW"/>   							
+                 	<var source="input" name="massLepTop"/>   							
+             		<var source="input" name="deltaMassHadTopLepTop"/>   
+                        <var source="input" name="sumBTag1HadBLepB"/>
+
                 </input>
                 <config>
-                      <pdf/>
                         <pdf/>
                         <pdf/>
                         <pdf/>
@@ -209,86 +47,7 @@
                         <pdf/>
                         <pdf/>
                         <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-                        <pdf/>
-
+ 
                 </config>
                 <output>
                         <var name="var1"/>
@@ -301,87 +60,7 @@
                         <var name="var8"/>
                         <var name="var9"/>
                         <var name="var10"/>
-                        <var name="var11"/>
-                        <var name="var12"/>
-                        <var name="var13"/>
-                        <var name="var14"/>
-                        <var name="var15"/>
-                        <var name="var16"/>
-                        <var name="var17"/>
-                        <var name="var18"/>
-                        <var name="var19"/>
-                        <var name="var20"/>
-                        <var name="var21"/>
-                        <var name="var22"/>
-                        <var name="var23"/>
-                        <var name="var24"/>
-                        <var name="var25"/>
-                        <var name="var26"/>
-                        <var name="var27"/>
-                        <var name="var28"/>
-                        <var name="var29"/>
-                        <var name="var30"/>
-                        <var name="var31"/>
-                        <var name="var32"/>
-                        <var name="var33"/>
-                        <var name="var34"/>
-                        <var name="var35"/>
-                        <var name="var36"/>
-                        <var name="var37"/>
-                        <var name="var38"/>
-                        <var name="var39"/>
-                        <var name="var40"/>
-                        <var name="var41"/>
-                        <var name="var42"/>
-                        <var name="var43"/>
-                        <var name="var44"/>
-                        <var name="var45"/>
-                        <var name="var46"/>
-                        <var name="var47"/>
-                        <var name="var48"/>
-                        <var name="var49"/>
-                        <var name="var50"/>
-                        <var name="var51"/>
-                        <var name="var52"/>
-                        <var name="var53"/>
-                        <var name="var54"/>
-                        <var name="var55"/>
-                        <var name="var56"/>
-                        <var name="var57"/>
-                        <var name="var58"/>
-                        <var name="var59"/>
-                        <var name="var60"/>
-                        <var name="var61"/>
-                        <var name="var62"/>
-                        <var name="var63"/>
-                        <var name="var64"/>
-                        <var name="var65"/>
-                        <var name="var66"/>
-                        <var name="var67"/>
-                        <var name="var68"/>
-                        <var name="var69"/>
-                        <var name="var70"/>
-                        <var name="var71"/>
-                        <var name="var72"/>
-                        <var name="var73"/>
-                        <var name="var74"/>
-                        <var name="var75"/>
-                        <var name="var76"/>
-                        <var name="var77"/>
-                        <var name="var78"/>
-                        <var name="var79"/>
-                        <var name="var80"/>
-                        <var name="var81"/>
-                        <var name="var82"/>
-                        <var name="var83"/>
-                        <var name="var84"/>
-                        <var name="var85"/>
-                        <var name="var86"/>
-                        <var name="var87"/>
-                        <var name="var88"/>
-                        <var name="var89"/>
-                        <var name="var90"/>
-
+                        
                 </output>
         </processor>
 
@@ -394,6 +73,9 @@
                         <var source="norm" name="var5"/>
                         <var source="norm" name="var6"/>
                         <var source="norm" name="var7"/>
+                        <var source="norm" name="var8"/>
+                        <var source="norm" name="var9"/>
+                        <var source="norm" name="var10"/>
 		</input>
 		<config>
 			<fill signal="true" background="true"/>
@@ -406,6 +88,9 @@
 			<var name="rot5"/>
 			<var name="rot6"/>
 			<var name="rot7"/>
+			<var name="rot8"/>
+			<var name="rot9"/>
+			<var name="rot10"/>
 		</output>
 	</processor>
 
