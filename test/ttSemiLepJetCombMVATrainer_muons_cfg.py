@@ -4,7 +4,7 @@ import FWCore.ParameterSet.Config as cms
 # test cfg file for mva training for jet parton 
 # association
 #-------------------------------------------------
-process = cms.Process("TESTMVA")
+process = cms.Process("TEST")
 
 ## add message logger
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
@@ -16,8 +16,7 @@ process.MessageLogger.cerr.threshold = 'INFO'
 
 ## define input
 process.source = cms.Source("PoolSource",
-   # fileNames = cms.untracked.vstring('file:/afs/cern.ch/cms/PRS/top/cmssw-data/relval200-for-pat-testing/FullSimTTBar-2_1_X_2008-07-08_STARTUP_V4-AODSIM.100.root')
-    fileNames = cms.untracked.vstring('dcap://maite.iihe.ac.be/pnfs/iihe/cms/store/user/villella/CMSSW_2_2_3/Layer1_Skim_TTJets_Tauola_/PATLayer1_Skim1_semilep_Tauola_1.root')
+    fileNames = cms.untracked.vstring('file:/afs/cern.ch/cms/PRS/top/cmssw-data/relval200-for-pat-testing/FullSimTTBar-2_1_X_2008-07-08_STARTUP_V4-AODSIM.100.root')
 )
 
 ## define maximal number of events to loop over
@@ -70,15 +69,15 @@ process.looper = looper
 
 ## necessary fixes to run 2.2.X on 2.1.X data
 ## comment this when running on samples produced with 22X
-#from PhysicsTools.PatAlgos.tools.cmsswVersionTools import run22XonSummer08AODSIM
-#run22XonSummer08AODSIM(process)
+from PhysicsTools.PatAlgos.tools.cmsswVersionTools import run22XonSummer08AODSIM
+run22XonSummer08AODSIM(process)
 
 #-------------------------------------------------
 # process paths
 #-------------------------------------------------
 
 ## produce tqafLayer1 and ttGenEvt
-process.p0 = cms.Path(#process.tqafLayer1 *
+process.p0 = cms.Path(process.tqafLayer1 *
                       process.makeGenEvt)
 
 ## make jet parton match and perform MVA training
