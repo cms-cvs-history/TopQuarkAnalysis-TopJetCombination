@@ -41,7 +41,7 @@ TtSemiLepJetCombMVAComputer::produce(edm::Event& evt, const edm::EventSetup& set
   *pOutMeth = ( processors[ processors.size()-1 ] )->getInstanceName();
   evt.put(pOutMeth, "Method");
 
-  // get lepton and jets
+  // get lepton, jets and mets
   edm::Handle< edm::View<reco::RecoCandidate> > leptons; 
   evt.getByLabel(leptons_, leptons);
 
@@ -51,16 +51,11 @@ TtSemiLepJetCombMVAComputer::produce(edm::Event& evt, const edm::EventSetup& set
   edm::Handle< std::vector<pat::MET> > mets;
   evt.getByLabel(mets_, mets);
 
-  const pat::MET *met = &(*mets)[0];
-
-  //skip events with no appropriate lepton candidate in
-  if( leptons->empty() ) return;
-
   unsigned int nPartons = 4;
 
-  // skip events with no appropriate lepton candidate in
-  // or less jets than partons
-  if( leptons->empty() || jets->size() < nPartons ) {
+  // skip events with no appropriate lepton candidate,
+  // empty METs vector or less jets than partons
+  if( leptons->empty() || mets->empty() || jets->size() < nPartons ) {
     std::vector<int> invalidCombi;
     for(unsigned int i = 0; i < nPartons; ++i) 
       invalidCombi.push_back( -1 );
@@ -71,7 +66,9 @@ TtSemiLepJetCombMVAComputer::produce(edm::Event& evt, const edm::EventSetup& set
     return;
   }
 
-  math::XYZTLorentzVector lepton = leptons->begin()->p4();
+  const math::XYZTLorentzVector lepton = leptons->begin()->p4();
+
+  const pat::MET *met = &(*mets)[0];
 
   // analyze jet combinations
   std::vector<int> jetIndices;
