@@ -12,7 +12,6 @@
 #include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/MET.h"
-#include "DataFormats/PatCandidates/interface/Muon.h"
 
 TtSemiLepJetCombMVATrainer::TtSemiLepJetCombMVATrainer(const edm::ParameterSet& cfg):
   leptons_   (cfg.getParameter<edm::InputTag>("leptons")),
@@ -49,13 +48,15 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   edm::Handle< std::vector<pat::MET> > mets;
   evt.getByLabel(mets_, mets);
 
-  const pat::MET *met = &(*mets)[0];
-
-  //skip events with no appropriate lepton candidate in
+  //skip events with no appropriate lepton candidate
   if( leptons->empty() ) return;
   
-  math::XYZTLorentzVector lepton = leptons->begin()->p4();
+  const math::XYZTLorentzVector lepton = leptons->begin()->p4();
   
+  //skip events with empty METs vector
+  if( mets->empty() ) return;
+
+  const pat::MET *met = &(*mets)[0];
 
   // skip events with less jets than partons
   unsigned int nPartons = 4;
@@ -73,7 +74,6 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
       if(matching[i] < 0 || matching[i] >= (int)jets->size())
 	return;
   }
-
 
   // analyze true and false jet combinations
   std::vector<int> jetIndices;
