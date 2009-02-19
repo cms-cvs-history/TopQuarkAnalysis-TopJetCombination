@@ -31,11 +31,8 @@ class TtSemiLepHypothesis : public edm::EDProducer {
   /// reset candidate pointers before hypo build process
   void resetCandidates();
   /// use one object in a collection to set a ShallowClonePtrCandidate
-  template<typename O, typename U, template<typename, typename> class C>
-  void setCandidate(const edm::Handle<C<O, U> >&, const int&, reco::ShallowClonePtrCandidate*& );
-  /// use one object in a collection to set a ShallowClonePtrCandidate                           
-  template<typename O, template<typename> class C>
-  void setCandidate(const edm::Handle<C<O> >&, const int&, reco::ShallowClonePtrCandidate*& );
+  template<typename C>
+  void setCandidate(const edm::Handle<C>&, const int&, reco::ShallowClonePtrCandidate*& );
 
   /// return key
   int key() const { return key_; };
@@ -82,21 +79,12 @@ class TtSemiLepHypothesis : public edm::EDProducer {
 
 // unfortunately this has to be placed in the header since otherwise the function template
 // would cause unresolved references in classes derived from this base class
-template<typename O, typename U, template<typename, typename> class C>
+template<typename C>
 void
-TtSemiLepHypothesis::setCandidate(const edm::Handle<C<O, U> >& handle, const int& idx, reco::ShallowClonePtrCandidate* &clone) {
+TtSemiLepHypothesis::setCandidate(const edm::Handle<C>& handle, const int& idx, reco::ShallowClonePtrCandidate* &clone) {
+  typedef typename C::value_type O;
   edm::Ptr<O> ptr = edm::Ptr<O>(handle, idx);
   clone = new reco::ShallowClonePtrCandidate( ptr, ptr->charge(), ptr->p4(), ptr->vertex() );
 }
-
-// unfortunately this has to be placed in the header since otherwise the function template                                                                  
-// would cause unresolved references in classes derived from this base class                                                                                 
-template<typename O, template<typename> class C>
-void
-TtSemiLepHypothesis::setCandidate(const edm::Handle<C<O> >& handle, const int& idx, reco::ShallowClonePtrCandidate* &clone) {
-  edm::Ptr<O> ptr = edm::Ptr<O>(handle, idx);
-  clone = new reco::ShallowClonePtrCandidate( ptr, ptr->charge(), ptr->p4(), ptr->vertex() );
-} 
-
 
 #endif
