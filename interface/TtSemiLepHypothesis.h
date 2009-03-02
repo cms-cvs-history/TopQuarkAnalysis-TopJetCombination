@@ -9,10 +9,10 @@
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 
-#include "DataFormats/Candidate/interface/ShallowClonePtrCandidate.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/MET.h"
 #include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
+#include "DataFormats/Candidate/interface/ShallowClonePtrCandidate.h"
 
 #include "AnalysisDataFormats/TopObjects/interface/TtSemiLeptonicEvent.h"
 

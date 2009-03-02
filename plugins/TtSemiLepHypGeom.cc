@@ -1,7 +1,6 @@
 #include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepHypGeom.h"
-#include "TopQuarkAnalysis/TopTools/interface/TtSemiLepEvtPartons.h"
-
 #include <Math/VectorUtil.h>
+
 
 TtSemiLepHypGeom::TtSemiLepHypGeom(const edm::ParameterSet& cfg):
   TtSemiLepHypothesis( cfg ),  
@@ -117,7 +116,7 @@ TtSemiLepHypGeom::buildHypo(edm::Event& evt,
   // -----------------------------------------------------
   setCandidate(leps, 0, lepton_);
   match[TtSemiLepEvtPartons::Lepton] = 0;
-  
+
   // -----------------------------------------------------
   // add neutrino
   // -----------------------------------------------------
