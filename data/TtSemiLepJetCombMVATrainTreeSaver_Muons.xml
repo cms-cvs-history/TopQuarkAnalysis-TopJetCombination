@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<MVATrainer>
+
+        <general>
+                <option name="id">TtSemiLepJetCombMVATrainer</option>
+                <option name="trainfiles">train_%1$s%2$s.%3$s</option>
+        </general>
+
+        <input id="input">
+
+                <var name="deltaThetaHadQHadQBar"   	multiple="false" optional="false"/>
+                <var name="deltaThetaHadWHadB"   	multiple="false" optional="false"/>
+                <var name="deltaRLepBLepton"   		multiple="false" optional="false"/>
+                <var name="deltaThetaHadTopLepTop"   	multiple="false" optional="false"/>
+                <var name="massHadW"   			multiple="false" optional="false"/>
+                <var name="massHadTop"   		multiple="false" optional="false"/>
+                <var name="massLepW"   			multiple="false" optional="false"/>
+                <var name="massLepTop"   		multiple="false" optional="false"/>
+                <var name="deltaMassHadTopLepTop"   	multiple="false" optional="false"/>
+                <var name="sumBTag1HadBLepB"   		multiple="false" optional="false"/>
+
+        </input>
+
+        <processor id="save" name="TreeSaver">
+                <input>
+
+                 	<var source="input" name="deltaThetaHadQHadQBar"/>
+                 	<var source="input" name="deltaThetaHadWHadB"/>
+                 	<var source="input" name="deltaRLepBLepton"/>
+                 	<var source="input" name="deltaThetaHadTopLepTop"/>
+                 	<var source="input" name="massHadW"/>
+                 	<var source="input" name="massHadTop"/>
+                 	<var source="input" name="massLepW"/>
+                 	<var source="input" name="massLepTop"/>
+             		<var source="input" name="deltaMassHadTopLepTop"/>
+                        <var source="input" name="sumBTag1HadBLepB"/>
+
+                </input>
+
+                <config/>
+                <output/>
+        </processor>
+
+        <output>
+               	<var source="input" name="deltaThetaHadQHadQBar"/>
+        </output>
+
+</MVATrainer>

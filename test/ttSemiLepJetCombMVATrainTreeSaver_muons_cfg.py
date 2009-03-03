@@ -16,7 +16,9 @@ process.MessageLogger.cerr.threshold = 'INFO'
 
 ## define input
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:/afs/cern.ch/cms/PRS/top/cmssw-data/relval200-for-pat-testing/FullSimTTBar-2_1_X_2008-07-08_STARTUP_V4-AODSIM.100.root')
+    fileNames = cms.untracked.vstring(
+    'file:/afs/cern.ch/cms/PRS/top/cmssw-data/relval200-for-pat-testing/FullSimTTBar-2_1_X_2008-07-08_STARTUP_V4-AODSIM.100.root'
+    )
 )
 
 ## define maximal number of events to loop over
@@ -58,13 +60,13 @@ process.ttDecaySelection.channel_1 = [0, 1, 0]
 process.load("TopQuarkAnalysis.TopTools.TtSemiLepJetPartonMatch_cfi")
 
 ## configure mva trainer
-process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff")
+process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_Muons_cff")
 ## change maximum number of jets taken into account per event (default: 4)
 #process.ttSemiLepJetPartonMatch .maxNJets = 5
 #process.trainTtSemiLepJetCombMVA.maxNJets = process.ttSemiLepJetPartonMatch.maxNJets
 
 ## make trainer looper known to the process
-from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainer_Muons_cff import looper
+from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_Muons_cff import looper
 process.looper = looper
 
 ## necessary fixes to run 2.2.X on 2.1.X data
@@ -80,10 +82,7 @@ run22XonSummer08AODSIM(process)
 process.p0 = cms.Path(process.tqafLayer1 *
                       process.makeGenEvt)
 
-## make jet parton match and perform MVA training
+## make jet parton match and save tree for MVA training
 process.p1 = cms.Path(process.ttDecaySelection *
                       process.ttSemiLepJetPartonMatch *
-                      process.trainTtSemiLepJetCombMVA)
-
-## save result of the training
-process.p2 = cms.Path(process.mvaTtSemiLepJetCombSaveFile)
+                      process.saveTtSemiLepJetCombMVATrainTree)
