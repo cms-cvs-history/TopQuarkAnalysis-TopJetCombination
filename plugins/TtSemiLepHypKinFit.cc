@@ -1,6 +1,6 @@
+#include "DataFormats/PatCandidates/interface/Particle.h"
 #include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepHypKinFit.h"
 
-#include "DataFormats/PatCandidates/interface/Particle.h"
 
 TtSemiLepHypKinFit::TtSemiLepHypKinFit(const edm::ParameterSet& cfg):
   TtSemiLepHypothesis( cfg ),

@@ -1,17 +1,17 @@
+#include "TMath.h"
 #include <algorithm>
 
-#include "TMath.h"
-
-#include "PhysicsTools/MVATrainer/interface/HelperMacros.h"
-#include "PhysicsTools/JetMCUtils/interface/combination.h"
-
-#include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepJetCombMVATrainer.h"
-#include "TopQuarkAnalysis/TopTools/interface/TtSemiLepJetCombEval.h"
-#include "TopQuarkAnalysis/TopTools/interface/TtSemiLepEvtPartons.h"
-
-#include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/MET.h"
+#include "DataFormats/RecoCandidate/interface/RecoCandidate.h"
+#include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
+#include "TopQuarkAnalysis/TopTools/interface/TtSemiLepJetCombEval.h"
+#include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepJetCombMVATrainer.h"
+
+#include "PhysicsTools/JetMCUtils/interface/combination.h"
+#include "PhysicsTools/MVATrainer/interface/HelperMacros.h"
+
+
 
 TtSemiLepJetCombMVATrainer::TtSemiLepJetCombMVATrainer(const edm::ParameterSet& cfg):
   leptons_   (cfg.getParameter<edm::InputTag>("leptons")),

@@ -1,5 +1,6 @@
-#include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepHypGeom.h"
 #include <Math/VectorUtil.h>
+#include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
+#include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepHypGeom.h"
 
 
 TtSemiLepHypGeom::TtSemiLepHypGeom(const edm::ParameterSet& cfg):

@@ -1,5 +1,6 @@
+#include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
 #include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepHypMVADisc.h"
-#include "TopQuarkAnalysis/TopTools/interface/TtSemiLepEvtPartons.h"
+
 
 TtSemiLepHypMVADisc::TtSemiLepHypMVADisc(const edm::ParameterSet& cfg):
   TtSemiLepHypothesis( cfg ) { }
