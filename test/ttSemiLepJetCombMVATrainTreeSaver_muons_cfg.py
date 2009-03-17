@@ -52,9 +52,11 @@ process.load("TopQuarkAnalysis.TopObjectProducers.tqafLayer1_cff")
 ## std sequence for ttGenEvent
 process.load("TopQuarkAnalysis.TopEventProducers.sequences.ttGenEvent_cff")
 
-## configure ttDecaySelection
-process.load("TopQuarkAnalysis.TopEventProducers.producers.TtDecaySelection_cfi")
-process.ttDecaySelection.channel_1 = [0, 1, 0]
+## configure ttGenEventFilters
+process.load("TopQuarkAnalysis.TopEventProducers.sequences.ttGenEventFilters_cff")
+process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.electron = False
+process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.muon     = True
+process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.tau      = False
 
 ## configure jet parton matching
 process.load("TopQuarkAnalysis.TopTools.TtSemiLepJetPartonMatch_cfi")
@@ -83,6 +85,6 @@ process.p0 = cms.Path(process.tqafLayer1 *
                       process.makeGenEvt)
 
 ## make jet parton match and save tree for MVA training
-process.p1 = cms.Path(process.ttDecaySelection *
+process.p1 = cms.Path(process.ttSemiLeptonicFilter *
                       process.ttSemiLepJetPartonMatch *
                       process.saveTtSemiLepJetCombMVATrainTree)
