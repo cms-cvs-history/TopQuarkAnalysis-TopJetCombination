@@ -29,12 +29,6 @@
                 <var name="etaHadW"   multiple="false" optional="false"/>
                 <var name="phiHadW"   multiple="false" optional="false"/>
                 <var name="thetaHadW" multiple="false" optional="false"/>
-                <!-- leptonic W boson -->
-                <var name="massLepW"  multiple="false" optional="false"/>
-                <var name="ptLepW"    multiple="false" optional="false"/>
-                <var name="etaLepW"   multiple="false" optional="false"/>
-                <var name="phiLepW"   multiple="false" optional="false"/>
-                <var name="thetaLepW" multiple="false" optional="false"/>
                 <!-- hadronic b quark -->
                 <var name="ptHadB"    multiple="false" optional="false"/>
                 <var name="etaHadB"   multiple="false" optional="false"/>
@@ -55,16 +49,6 @@
                 <var name="etaLightQBar"   multiple="false" optional="false"/>
                 <var name="phiLightQBar"   multiple="false" optional="false"/>
                 <var name="thetaLightQBar" multiple="false" optional="false"/>
-                <!-- lepton -->
-                <var name="ptLepton"    multiple="false" optional="false"/>
-                <var name="etaLepton"   multiple="false" optional="false"/>
-                <var name="phiLepton"   multiple="false" optional="false"/>
-                <var name="thetaLepton" multiple="false" optional="false"/>
-                <!-- neutrino -->
-                <var name="ptNeutrino"    multiple="false" optional="false"/>
-                <var name="etaNeutrino"   multiple="false" optional="false"/>
-                <var name="phiNeutrino"   multiple="false" optional="false"/>
-                <var name="thetaNeutrino" multiple="false" optional="false"/>
                 <!-- ==================================================================================== -->
                 <!-- compare two candidates of the ttbar system in DeltaM, DeltaR, DeltaPhi or DeltaTheta -->
                 <!-- ==================================================================================== -->
@@ -86,10 +70,6 @@
                 <var name="deltaRHadQHadQBar"     multiple="false" optional="false"/>
                 <var name="deltaPhiHadQHadQBar"   multiple="false" optional="false"/>
                 <var name="deltaThetaHadQHadQBar" multiple="false" optional="false"/>
-                <!-- lepton and neutrino -->
-                <var name="deltaRLeptonNeutrino"     multiple="false" optional="false"/>
-                <var name="deltaPhiLeptonNeutrino"   multiple="false" optional="false"/>
-                <var name="deltaThetaLeptonNeutrino" multiple="false" optional="false"/>
                 <!-- the hadronic top and the hadronic W -->
                 <var name="deltaMHadTopHadW"     multiple="false" optional="false"/>
                 <var name="deltaRHadTopHadW"     multiple="false" optional="false"/>
@@ -162,18 +142,10 @@
                 <var name="deltaRHadWLepton"     multiple="false" optional="false"/>
                 <var name="deltaPhiHadWLepton"   multiple="false" optional="false"/>
                 <var name="deltaThetaHadWLepton" multiple="false" optional="false"/>
-                <!-- the leptonic W and the lepton -->
-                <var name="deltaRLepWLepton"     multiple="false" optional="false"/>
-                <var name="deltaPhiLepWLepton"   multiple="false" optional="false"/>
-                <var name="deltaThetaLepWLepton" multiple="false" optional="false"/>
                 <!-- the hadronic W and the neutrino -->
                 <var name="deltaRHadWNeutrino"     multiple="false" optional="false"/>
                 <var name="deltaPhiHadWNeutrino"   multiple="false" optional="false"/>
                 <var name="deltaThetaHadWNeutrino" multiple="false" optional="false"/>
-                <!-- the leptonic W and the neutrino -->
-                <var name="deltaRLepWNeutrino"     multiple="false" optional="false"/>
-                <var name="deltaPhiLepWNeutrino"   multiple="false" optional="false"/>
-                <var name="deltaThetaLepWNeutrino" multiple="false" optional="false"/>
                 <!-- the hadronic b and the lepton -->
                 <var name="deltaRHadBLepton"     multiple="false" optional="false"/>
                 <var name="deltaPhiHadBLepton"   multiple="false" optional="false"/>
@@ -220,11 +192,6 @@
                 <var name="bTagSumCombSecondVtx" multiple="false" optional="false"/>
                 <var name="bTagSumImpactParaMVA" multiple="false" optional="false"/>
                 <!-- multiplied b-tags of the two b quark candidates -->
-                <var name="bTagProdTrkCntHighEff" multiple="false" optional="false"/>
-                <var name="bTagProdTrkCntHighPur" multiple="false" optional="false"/>
-                <var name="bTagProdSoftMuon"      multiple="false" optional="false"/>
-                <var name="bTagProdSimpSecondVtx" multiple="false" optional="false"/>
-                <var name="bTagProdCombSecondVtx" multiple="false" optional="false"/>
                 <var name="bTagProdImpactParaMVA" multiple="false" optional="false"/>
 
         </input>
