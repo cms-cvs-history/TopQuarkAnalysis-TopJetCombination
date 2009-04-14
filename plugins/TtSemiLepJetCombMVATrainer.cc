@@ -42,21 +42,21 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   edm::Handle< edm::View<reco::RecoCandidate> > leptons; 
   evt.getByLabel(leptons_, leptons);
 
-  edm::Handle< std::vector<pat::Jet> > jets;
-  evt.getByLabel(jets_, jets);
+  // skip events with no appropriate lepton candidate
+  if( leptons->empty() ) return;
+
+  const math::XYZTLorentzVector lepton = leptons->begin()->p4();
 
   edm::Handle< std::vector<pat::MET> > mets;
   evt.getByLabel(mets_, mets);
 
-  //skip events with no appropriate lepton candidate
-  if( leptons->empty() ) return;
-  
-  const math::XYZTLorentzVector lepton = leptons->begin()->p4();
-  
-  //skip events with empty METs vector
+  // skip events with empty METs vector
   if( mets->empty() ) return;
 
   const pat::MET *met = &(*mets)[0];
+
+  edm::Handle< std::vector<pat::Jet> > jets;
+  evt.getByLabel(jets_, jets);
 
   // skip events with less jets than partons
   unsigned int nPartons = 4;
@@ -83,7 +83,6 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
     matching[TtSemiLepEvtPartons::LightQBar] = iTemp;
   }
 
-  // analyze true and false jet combinations
   std::vector<int> jetIndices;
   for(unsigned int i=0; i<jets->size(); ++i) {
     if(maxNJets_ >= nPartons && i == (unsigned int) maxNJets_) break;
@@ -94,23 +93,32 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   for(unsigned int i = 0; i < nPartons; ++i) 
     combi.push_back(i);
 
+  // use a ValueList to collect all variables for the MVAComputer
+  PhysicsTools::Variable::ValueList values;
+
+  // set target variable to false like for background
+  // this is necessary when passing all combinations at once
+  values.add( PhysicsTools::Variable::Value(PhysicsTools::MVATrainer::kTargetId, false) );
+
   do {
     // number of possible combinations from number of partons: e.g. 4! = 24
     for(unsigned int cnt = 0; cnt < TMath::Factorial( combi.size() ); ++cnt) {
-      
+
       // take into account indistinguishability of the two jets from the hadr. W decay,
       // reduces combinatorics by a factor of 2
-      if(combi[TtSemiLepEvtPartons::LightQ] < combi[TtSemiLepEvtPartons::LightQBar]) {  
+      if(combi[TtSemiLepEvtPartons::LightQ] < combi[TtSemiLepEvtPartons::LightQBar]) {
 	
 	TtSemiLepJetComb jetComb(*jets, combi, lepton, *met);
-	
+
 	bool trueCombi = false;
 	// true combination only if signal channel
 	// and in agreement with matching
 	if(genEvt->semiLeptonicChannel()==lepChannel_ && combi==matching)
 	  trueCombi = true;
-	
-	evaluateTtSemiLepJetComb(mvaComputer, jetComb, true, trueCombi);
+
+	// feed MVA input variables for this jetComb into the ValueList
+	values.add("target", trueCombi);
+	evaluateTtSemiLepJetComb(values, jetComb);
 
       }
 
@@ -119,6 +127,9 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   }
   while(stdcomb::next_combination( jetIndices.begin(), jetIndices.end(), combi.begin(), combi.end() ));
 
+  // pass MVA input variables for all jet combinations in this event
+  // to the MVAComputer for training
+  mvaComputer->eval( values );
 }
 
 // implement the plugins for the trainer
