@@ -9,6 +9,11 @@ process = cms.Process("TEST")
 ## add message logger
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
 process.MessageLogger.cerr.threshold = 'INFO'
+process.MessageLogger.categories.append('TtSemiLepJetCombMVATrainer')
+process.MessageLogger.cerr.INFO = cms.untracked.PSet(
+    default                    = cms.untracked.PSet( limit = cms.untracked.int32( 0) ),
+    TtSemiLepJetCombMVATrainer = cms.untracked.PSet( limit = cms.untracked.int32(-1) )
+)
 
 #-------------------------------------------------
 # process configuration

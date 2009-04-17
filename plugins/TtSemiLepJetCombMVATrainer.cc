@@ -11,8 +11,6 @@
 #include "PhysicsTools/JetMCUtils/interface/combination.h"
 #include "PhysicsTools/MVATrainer/interface/HelperMacros.h"
 
-
-
 TtSemiLepJetCombMVATrainer::TtSemiLepJetCombMVATrainer(const edm::ParameterSet& cfg):
   leptons_   (cfg.getParameter<edm::InputTag>("leptons")),
   jets_      (cfg.getParameter<edm::InputTag>("jets")),
@@ -27,6 +25,13 @@ TtSemiLepJetCombMVATrainer::~TtSemiLepJetCombMVATrainer()
 {
 }
 
+void 
+TtSemiLepJetCombMVATrainer::beginJob(const edm::EventSetup&)
+{
+  for(unsigned int i = 0; i < 5; i++)
+    nEvents[i] = 0;
+}
+
 void
 TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup& setup)
 {
@@ -35,6 +40,8 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   // can occur in the last iteration when the 
   // MVATrainer is about to save the result
   if(!mvaComputer) return;
+
+  nEvents[0]++;
 
   edm::Handle<TtGenEvent> genEvt;
   evt.getByLabel("genEvt", genEvt);
@@ -45,6 +52,8 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   // skip events with no appropriate lepton candidate
   if( leptons->empty() ) return;
 
+  nEvents[1]++;
+
   const math::XYZTLorentzVector lepton = leptons->begin()->p4();
 
   edm::Handle< std::vector<pat::MET> > mets;
@@ -52,6 +61,8 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
 
   // skip events with empty METs vector
   if( mets->empty() ) return;
+
+  nEvents[2]++;
 
   const pat::MET *met = &(*mets)[0];
 
@@ -61,6 +72,8 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   // skip events with less jets than partons
   unsigned int nPartons = 4;
   if( jets->size() < nPartons ) return;
+
+  nEvents[3]++;
 
   edm::Handle< std::vector< std::vector<int> > > matchingHandle;
   std::vector<int> matching;
@@ -74,6 +87,8 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
       if(matching[i] < 0 || matching[i] >= (int)jets->size())
 	return;
   }
+
+  nEvents[4]++;
 
   // take into account indistinguishability of the two jets from the hadr. W decay,
   // reduces combinatorics by a factor of 2
@@ -130,6 +145,19 @@ TtSemiLepJetCombMVATrainer::analyze(const edm::Event& evt, const edm::EventSetup
   // pass MVA input variables for all jet combinations in this event
   // to the MVAComputer for training
   mvaComputer->eval( values );
+}
+
+void
+TtSemiLepJetCombMVATrainer::endJob() 
+{
+  edm::LogInfo log("TtSemiLepJetCombMVATrainer");
+  log << "Number of events... \n"
+      << "...passed to the trainer                   : " << std::setw(7) << nEvents[0] << "\n"
+      << "...rejected since no lepton candidate      : " << std::setw(7) << nEvents[0]-nEvents[1] << "\n"
+      << "...rejected since no MET object            : " << std::setw(7) << nEvents[1]-nEvents[2] << "\n"
+      << "...rejected since not enough jets          : " << std::setw(7) << nEvents[2]-nEvents[3] << "\n"
+      << "...rejected due to bad jet-parton matching : " << std::setw(7) << nEvents[3]-nEvents[4] << "\n"
+      << "...accepted for training                   : " << std::setw(7) << nEvents[4] << "\n";
 }
 
 // implement the plugins for the trainer
