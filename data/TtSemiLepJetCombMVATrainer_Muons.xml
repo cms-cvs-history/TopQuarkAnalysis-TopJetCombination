@@ -194,6 +194,15 @@
                 <var name="bTagSumImpactParaMVA" multiple="true" optional="false"/>
                 <!-- multiplied b-tags of the two b quark candidates -->
                 <var name="bTagProdImpactParaMVA" multiple="true" optional="false"/>
+                <!-- summed b-tags of the two light quark candidates -->
+                <var name="bTagSumHadQHadQBarTrkCntHighEff" multiple="true" optional="false"/>
+                <var name="bTagSumHadQHadQBarTrkCntHighPur" multiple="true" optional="false"/>
+                <var name="bTagSumHadQHadQBarSoftMuon"      multiple="true" optional="false"/>
+                <var name="bTagSumHadQHadQBarSimpSecondVtx" multiple="true" optional="false"/>
+                <var name="bTagSumHadQHadQBarCombSecondVtx" multiple="true" optional="false"/>
+                <var name="bTagSumHadQHadQBarImpactParaMVA" multiple="true" optional="false"/>
+                <!-- multiplied b-tags of the two light quark candidates -->
+                <var name="bTagProdHadQHadQBarImpactParaMVA" multiple="true" optional="false"/>
 
         </input>
 
