@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 #
-# module to make mvaTraining for jet parton associations
+# module to perform MVA training for jet-parton association
 #
 trainTtSemiLepJetCombMVA = cms.EDAnalyzer("TtSemiLepJetCombMVATrainer",
     #-------------------------------------------------
@@ -15,9 +15,9 @@ trainTtSemiLepJetCombMVA = cms.EDAnalyzer("TtSemiLepJetCombMVATrainer",
     # ------------------------------------------------
     # select semileptonic signal channel
     # (all others are taken as background for training)
-    # 1: electron, 2: muon, 3: tau
+    # either "kElec", "kMuon" or "kTau"
     # ------------------------------------------------
-    lepChannel = cms.int32(2),
+    leptonType = cms.string("kMuon"),
 
     # ------------------------------------------------
     # maximum number of jets to be considered

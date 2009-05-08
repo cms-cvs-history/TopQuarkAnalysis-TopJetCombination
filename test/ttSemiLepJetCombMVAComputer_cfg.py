@@ -48,7 +48,7 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("TopQuarkAnalysis.TopObjectProducers.tqafLayer1_cff")
 
 ## configure mva computer
-process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVAComputer_Muons_cff")
+process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVAComputer_cff")
 ## change maximum number of jets taken into account per event (default: 4)
 #process.findTtSemiLepJetCombMVA.maxNJets = 5
 
