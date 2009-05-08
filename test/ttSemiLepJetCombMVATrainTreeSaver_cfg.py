@@ -54,7 +54,6 @@ process.GlobalTag.globaltag = cms.string('STARTUP_V7::All')
 ## load magnetic field
 process.load("Configuration.StandardSequences.MagneticField_cff")
 
-
 #-------------------------------------------------
 # tqaf configuration
 #-------------------------------------------------
@@ -75,13 +74,13 @@ process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.tau      = False
 process.load("TopQuarkAnalysis.TopTools.TtSemiLepJetPartonMatch_cfi")
 
 ## configure mva trainer
-process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_Muons_cff")
+process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_cff")
 ## change maximum number of jets taken into account per event (default: 4)
 #process.ttSemiLepJetPartonMatch .maxNJets = 5
 #process.trainTtSemiLepJetCombMVA.maxNJets = process.ttSemiLepJetPartonMatch.maxNJets
 
 ## make trainer looper known to the process
-from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_Muons_cff import looper
+from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_cff import looper
 process.looper = looper
 
 ## necessary fixes to run 2.2.X on 2.1.X data
@@ -90,14 +89,11 @@ from PhysicsTools.PatAlgos.tools.cmsswVersionTools import run22XonSummer08AODSIM
 run22XonSummer08AODSIM(process)
 
 #-------------------------------------------------
-# process paths
+# process path
 #-------------------------------------------------
 
-## produce tqafLayer1 and ttGenEvt
-process.p0 = cms.Path(process.tqafLayer1 *
-                      process.makeGenEvt)
-
-## make jet parton match and save tree for MVA training
-process.p1 = cms.Path(process.ttSemiLeptonicFilter *
-                      process.ttSemiLepJetPartonMatch *
-                      process.saveTtSemiLepJetCombMVATrainTree)
+process.p = cms.Path(process.makeGenEvt *
+                     process.ttSemiLeptonicFilter *
+                     process.tqafLayer1 *
+                     process.ttSemiLepJetPartonMatch *
+                     process.saveTtSemiLepJetCombMVATrainTree)
