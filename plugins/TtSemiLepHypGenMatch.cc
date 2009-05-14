@@ -1,7 +1,7 @@
 #include "DataFormats/Math/interface/deltaR.h"
 #include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
+#include "AnalysisDataFormats/TopObjects/interface/TtSemiLepEvtPartons.h"
 #include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepHypGenMatch.h"
-
 
 TtSemiLepHypGenMatch::TtSemiLepHypGenMatch(const edm::ParameterSet& cfg):
   TtSemiLepHypothesis( cfg ) { }
