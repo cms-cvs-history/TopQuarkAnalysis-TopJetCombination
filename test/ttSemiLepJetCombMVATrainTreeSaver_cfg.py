@@ -55,12 +55,13 @@ process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.tau      = False
 
 ## configure jet-parton matching
 process.load("TopQuarkAnalysis.TopTools.TtSemiLepJetPartonMatch_cfi")
+#process.ttSemiLepJetPartonMatch.partonsToIgnore = ["LepB"]
 
 ## configure mva trainer
 process.load("TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_cff")
 ## change maximum number of jets taken into account per event (default: 4)
-## process.ttSemiLepJetPartonMatch .maxNJets = 5
-## process.trainTtSemiLepJetCombMVA.maxNJets = process.ttSemiLepJetPartonMatch.maxNJets
+#process.ttSemiLepJetPartonMatch .maxNJets = 5
+#process.trainTtSemiLepJetCombMVA.maxNJets = process.ttSemiLepJetPartonMatch.maxNJets
 
 ## make trainer looper known to the process
 from TopQuarkAnalysis.TopJetCombination.TtSemiLepJetCombMVATrainTreeSaver_cff import looper
