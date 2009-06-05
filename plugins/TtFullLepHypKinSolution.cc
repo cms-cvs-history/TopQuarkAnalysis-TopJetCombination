@@ -46,15 +46,14 @@ TtFullLepHypKinSolution::buildHypo(edm::Event& evt,
 
   // -----------------------------------------------------
   // add leptons
-  // -----------------------------------------------------
-    
+  // -----------------------------------------------------    
   if( !elecs->empty() && match[2]>=0) 
     setCandidate(elecs,  match[2], leptonBar_); 
- 
+
   if( !elecs->empty() && match[3]>=0)
     setCandidate(elecs,  match[3], lepton_);
-   
-  if( !mus->empty() && match[4]>=0 && match[2]<0) 
+
+  if( !mus->empty() && match[4]>=0 && match[2]<0)
     setCandidate(mus,  match[4], leptonBar_);  
 
   // this 'else' happens if you have a wrong charge electron-muon-

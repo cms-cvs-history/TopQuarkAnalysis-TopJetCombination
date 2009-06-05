@@ -35,19 +35,79 @@ TtFullLepHypGenMatch::buildHypo(edm::Event& evt,
   // -----------------------------------------------------
   // add leptons
   // -----------------------------------------------------
-  if( !mus->empty() ){
-    std::pair<int, int> ijLeptons = findMatchingLeptons(evt,mus);
-    if( ijLeptons.first >=0 )
-      setCandidate(mus, ijLeptons.first, lepton_);
-    match.push_back( ijLeptons.first );
-    if( ijLeptons.second >=0 )
-      setCandidate(mus, ijLeptons.second, leptonBar_);
-    match.push_back( ijLeptons.second );    
-  }
-  else{
+  // get genEvent
+  edm::Handle<TtGenEvent> genEvt;
+  evt.getByLabel("genEvt", genEvt);
+  
+  // push back fake indices if no leptons in genevent
+  if( !genEvt->isFullLeptonic() || !genEvt->lepton() || !genEvt->leptonBar() ){
     match.push_back( -1 );
     match.push_back( -1 );
+    match.push_back( -1 );
+    match.push_back( -1 );          
+  }  
+  else if(genEvt->isFullLeptonic(WDecay::kElec, WDecay::kElec) && elecs->size()>=2){    
+    //search indices for electrons
+    int iLepBar = findMatchingLepton(genEvt->leptonBar(), elecs);
+    setCandidate(elecs, iLepBar, leptonBar_);
+    match.push_back( iLepBar );
+    int iLep = findMatchingLepton(genEvt->lepton(), elecs);
+    setCandidate(elecs, iLep, lepton_);
+    match.push_back( iLep );
+    
+    // fake indices for muons  
+    match.push_back( -1 );
+    match.push_back( -1 );         
   }
+  else if(genEvt->isFullLeptonic(WDecay::kElec, WDecay::kMuon) && !elecs->empty() && !mus->empty() ){
+    if(genEvt->leptonBar()->isElectron()){       
+      // push back index for e+
+      int iLepBar = findMatchingLepton(genEvt->leptonBar(), elecs);
+      setCandidate(elecs, iLepBar, leptonBar_);
+      match.push_back( iLepBar );
+      // push back fake indices for e- and mu+
+      match.push_back( -1 );
+      match.push_back( -1 ); 
+      // push back index for mu-     
+      int iLep = findMatchingLepton(genEvt->lepton(), mus);
+      setCandidate(mus, iLep, lepton_);
+      match.push_back( iLep );              
+    }
+    else{       
+      // push back fake index for e+    
+      match.push_back( -1 );  
+      // push back index for e-  
+      int iLepBar = findMatchingLepton(genEvt->leptonBar(), mus);
+      setCandidate(mus, iLepBar, leptonBar_);
+      match.push_back( iLepBar ); 
+      // push back index for mu+
+      int iLep = findMatchingLepton(genEvt->lepton(), elecs);
+      setCandidate(elecs, iLep, lepton_);
+      match.push_back( iLep );
+      // push back fake index for mu-     
+      match.push_back( -1 );              
+    }
+  }  
+  else if(genEvt->isFullLeptonic(WDecay::kMuon, WDecay::kMuon) &&  mus->size()>=2 ){     
+    // fake indices for electrons
+    match.push_back( -1 );
+    match.push_back( -1 );  
+    
+    //search indices for electrons
+    int iLepBar = findMatchingLepton(genEvt->leptonBar(), mus);
+    setCandidate(mus, iLepBar, leptonBar_);
+    match.push_back( iLepBar );
+    int iLep = findMatchingLepton(genEvt->lepton(), mus);
+    setCandidate(mus, iLep, lepton_);
+    match.push_back( iLep );    
+  }
+  else{ //this 'else' should happen if at least one genlepton is a tau
+    match.push_back( -1 );
+    match.push_back( -1 );
+    match.push_back( -1 );
+    match.push_back( -1 );   
+  }
+
   // -----------------------------------------------------
   // add met and neutrinos
   // -----------------------------------------------------  
@@ -57,32 +117,20 @@ TtFullLepHypGenMatch::buildHypo(edm::Event& evt,
   }    
 }
 
-std::pair<int, int>
-TtFullLepHypGenMatch::findMatchingLeptons(edm::Event& evt, const edm::Handle<std::vector<pat::Muon> >& leps)
+template <typename O>
+int
+TtFullLepHypGenMatch::findMatchingLepton(const reco::GenParticle* genLep, const edm::Handle<std::vector<O> >& leps)
 {
-  std::pair<int, int> genIdcs(-1,-1);
-
-  // get genEvent
-  edm::Handle<TtGenEvent> genEvt;
-  evt.getByLabel("genEvt", genEvt);  
-  
-  if( genEvt->isTtBar() && genEvt->isFullLeptonic() && genEvt->lepton() && genEvt->leptonBar() ){
-    double minDRlep = -1;
-    double minDRlepbar = -1;
-    for(unsigned i=0; i<leps->size(); ++i){
-      double dRlep = deltaR(genEvt->lepton()->eta(), genEvt->lepton()->phi(), (*leps)[i].eta(), (*leps)[i].phi());
-      if(minDRlep<0 || dRlep<minDRlep){
-	minDRlep=dRlep;
-	genIdcs.first=i;
-      }
-      double dRlepbar = deltaR(genEvt->leptonBar()->eta(), genEvt->leptonBar()->phi(), (*leps)[i].eta(), (*leps)[i].phi());
-      if(minDRlepbar<0 || dRlepbar<minDRlepbar){
-	minDRlepbar=dRlepbar;
-	genIdcs.second=i;
-      }      
-    }
+  int idx=-1;   
+  double minDR = -1;
+  for(unsigned i=0; i<leps->size(); ++i){
+    double dR = deltaR(genLep->eta(), genLep->phi(), (*leps)[i].eta(), (*leps)[i].phi());
+    if(minDR<0 || dR<minDR){
+      minDR=dR;
+      idx=i;
+    }     
   }
-  return genIdcs;
+  return idx;
 }
 
 void

@@ -23,8 +23,10 @@ class TtFullLepHypGenMatch : public TtFullLepHypothesis  {
 			 const edm::Handle<std::vector<pat::MET> >& mets, 
 			 std::vector<int>& match,
 			 const unsigned int iComb);
-  std::pair<int, int> findMatchingLeptons(edm::Event&, 
-			                  const edm::Handle<std::vector<pat::Muon> >&);
+			 
+  template <typename O>			 
+  int findMatchingLepton(const reco::GenParticle*, 
+			 const edm::Handle<std::vector<O> >&);
   void buildMatchingNeutrinos(edm::Event&,
                               const edm::Handle<std::vector<pat::MET> >&);			 	 
 };
