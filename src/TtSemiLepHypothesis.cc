@@ -63,13 +63,10 @@ TtSemiLepHypothesis::produce(edm::Event& evt, const edm::EventSetup& setup)
   unsigned int idMatch = 0;
   typedef std::vector<std::vector<int> >::iterator MatchVecIterator;
   for(MatchVecIterator match = matchVec.begin(); match != matchVec.end(); ++match) {
-
     // reset pointers
     resetCandidates();
-
     // build hypothesis
     buildHypo(evt, leps, mets, jets, *match, idMatch++);
-
     pOut->push_back( std::make_pair(hypo(), *match) );
   }
 
@@ -97,10 +94,9 @@ reco::CompositeCandidate
 TtSemiLepHypothesis::hypo()
 {
   // check for sanity of the hypothesis
-  if( !lightQ_ || !lightQBar_ || !hadronicB_ || 
-      !leptonicB_ || !neutrino_ || !lepton_ )
+  if( !lightQ_ || !lightQBar_ || !hadronicB_ || !leptonicB_ || !neutrino_ || !lepton_ ){
     return reco::CompositeCandidate();
-  
+  }
   // setup transient references
   reco::CompositeCandidate hyp, hadTop, hadW, lepTop, lepW;
 

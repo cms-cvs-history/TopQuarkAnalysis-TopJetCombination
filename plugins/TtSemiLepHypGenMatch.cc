@@ -4,9 +4,13 @@
 #include "TopQuarkAnalysis/TopJetCombination/plugins/TtSemiLepHypGenMatch.h"
 
 TtSemiLepHypGenMatch::TtSemiLepHypGenMatch(const edm::ParameterSet& cfg):
-  TtSemiLepHypothesis( cfg ) { }
+  TtSemiLepHypothesis( cfg ) 
+{ 
+}
 
-TtSemiLepHypGenMatch::~TtSemiLepHypGenMatch() { }
+TtSemiLepHypGenMatch::~TtSemiLepHypGenMatch() 
+{ 
+}
 
 void
 TtSemiLepHypGenMatch::buildHypo(edm::Event& evt,
@@ -42,20 +46,22 @@ TtSemiLepHypGenMatch::buildHypo(edm::Event& evt,
       setCandidate(leps, iLepton, lepton_);
     match.push_back( iLepton );
   }
-  else match.push_back( -1 );
+  else{
+    match.push_back( -1 );
+  }
 
   // -----------------------------------------------------
   // add neutrino
   // -----------------------------------------------------
-  if( !mets->empty() )
+  if( !mets->empty() ){
     setCandidate(mets, 0, neutrino_);
+  }
 }
 
 int
 TtSemiLepHypGenMatch::findMatchingLepton(edm::Event& evt, const edm::Handle<edm::View<reco::RecoCandidate> >& leps)
 {
   int genIdx=-1;
-
   // set genEvent
   edm::Handle<TtGenEvent> genEvt;
   evt.getByLabel("genEvt", genEvt);  
