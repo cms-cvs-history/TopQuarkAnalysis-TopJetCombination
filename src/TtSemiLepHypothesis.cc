@@ -8,6 +8,7 @@ TtSemiLepHypothesis::TtSemiLepHypothesis(const edm::ParameterSet& cfg):
   jets_(cfg.getParameter<edm::InputTag>("jets")),
   leps_(cfg.getParameter<edm::InputTag>("leps")),
   mets_(cfg.getParameter<edm::InputTag>("mets")),
+  jetCorrectionLevel_(),
   lightQ_(0), lightQBar_(0), hadronicB_(0), 
   leptonicB_(0), neutrino_(0), lepton_(0)
 {
@@ -15,6 +16,9 @@ TtSemiLepHypothesis::TtSemiLepHypothesis(const edm::ParameterSet& cfg):
   if( cfg.exists("match") ) {
     getMatch_ = true;
     match_ = cfg.getParameter<edm::InputTag>("match");
+  }
+  if( cfg.exists("jetCorrectionLevel") ) {
+    jetCorrectionLevel_ = cfg.getParameter<std::string>("jetCorrectionLevel");
   }
 
   produces<std::vector<std::pair<reco::CompositeCandidate, std::vector<int> > > >();
@@ -139,4 +143,26 @@ TtSemiLepHypothesis::leptonType(const reco::RecoCandidate* cand)
     type = WDecay::kElec;
   }
   return type;
+}
+
+/// helper function to contruct the proper correction level string for corresponding quarkType, for unknown quarkTypes an emty string is returned 
+std::string
+TtSemiLepHypothesis::jetCorrectionLevel(const std::string& quarkType)
+{
+  std::string level=jetCorrectionLevel_+":";
+  if( level=="had:" || level=="ue:" || level=="part:" ){
+    if(quarkType=="lightQuark"){level+="uds";}
+    if(quarkType=="bJet"      ){level+="b";  }
+  }
+  return level;
+}
+
+/// use one object in a jet collection to set a ShallowClonePtrCandidate with proper jet corrections
+void 
+TtSemiLepHypothesis::setCandidate(const edm::Handle<std::vector<pat::Jet> >& handle, const int& idx, reco::ShallowClonePtrCandidate*& clone, const std::string& correctionLevel)
+{
+  std::string step   = correctionLevel.substr(0,correctionLevel.find(":"));
+  std::string flavor = correctionLevel.substr(1+correctionLevel.find(":"));
+  edm::Ptr<pat::Jet> ptr = edm::Ptr<pat::Jet>(handle, idx);
+  clone = new reco::ShallowClonePtrCandidate( ptr, ptr->charge(), ptr->correctedJet(step, flavor).p4(), ptr->vertex() );
 }
