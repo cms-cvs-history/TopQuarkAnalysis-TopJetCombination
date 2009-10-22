@@ -20,8 +20,8 @@ ttSemiLepHypGeom = cms.EDProducer("TtSemiLepHypGeom",
     bTagAlgorithm = cms.string("trackCountingHighEffBJetTags"),
     ## minimum b discriminator value required for b jets and
     ## maximum b discriminator value allowed for non-b jets
-    minBDiscBJets     = cms.double(2.0),
-    maxBDiscLightJets = cms.double(2.0),
+    minBDiscBJets     = cms.double(1.0),
+    maxBDiscLightJets = cms.double(3.0),
     ## specify jet correction level as
     ## No Correction : raw                                     
     ## L1Offset      : off
