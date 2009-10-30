@@ -17,9 +17,9 @@
 /*
    \class   TtFullHadHypothesis TtFullHadHypothesis.h "TopQuarkAnalysis/TopJetCombination/interface/TtFullHadHypothesis.h"
 
-   \brief   Interface class for the creation of semi-leptonic ttbar event hypotheses
+   \brief   Interface class for the creation of full-hadronic ttbar event hypotheses
 
-   The class provides an interface for the creation of semi-leptonic ttbar event hypotheses. Input information is read 
+   The class provides an interface for the creation of full-hadronic ttbar event hypotheses. Input information is read 
    from the event content and the proper candidate creation is taken care of. Hypotheses are characterized by the 
    CompositeCandidate made of a ttbar pair (including all its decay products in a parton level interpretation) and an 
    enumerator type key to specify the algorithm to determine the candidate (hypothesis cklass). The buildKey and the 

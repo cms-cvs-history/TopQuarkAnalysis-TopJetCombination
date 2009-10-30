@@ -23,10 +23,10 @@ TtFullHadHypothesis::~TtFullHadHypothesis()
 {
   if( lightQ_    ) delete lightQ_;
   if( lightQBar_ ) delete lightQBar_;
-  if( b_ ) delete b_;
-  if( bBar_ ) delete bBar_;
-  if( lightP_  ) delete lightP_;
-  if( lightPBar_    ) delete lightPBar_;
+  if( b_         ) delete b_;
+  if( bBar_      ) delete bBar_;
+  if( lightP_    ) delete lightP_;
+  if( lightPBar_ ) delete lightPBar_;
 }
 
 /// produce the event hypothesis as CompositeCandidate and Key
@@ -79,10 +79,10 @@ TtFullHadHypothesis::resetCandidates()
 {
   lightQ_    = 0;
   lightQBar_ = 0;
-  b_ = 0;
-  bBar_ = 0;
-  lightP_  = 0;
-  lightPBar_    = 0;
+  b_         = 0;
+  bBar_      = 0;
+  lightP_    = 0;
+  lightPBar_ = 0;
 }
 
 /// return event hypothesis
@@ -100,23 +100,23 @@ TtFullHadHypothesis::hypo()
   AddFourMomenta addFourMomenta;  
   // build up the top bar branch
   wBar  .addDaughter(*lightP_,    TtFullHadDaughter::LightP    );
-  wBar  .addDaughter(*lightPBar_, TtFullHadDaughter::LightPBar     );
+  wBar  .addDaughter(*lightPBar_, TtFullHadDaughter::LightPBar );
   addFourMomenta.set( wBar );
-  topBar.addDaughter( wBar,      TtFullHadDaughter::WMinus   );
-  topBar.addDaughter(*bBar_,TtFullHadDaughter::BBar   );
+  topBar.addDaughter( wBar,  TtFullHadDaughter::WMinus );
+  topBar.addDaughter(*bBar_, TtFullHadDaughter::BBar   );
   addFourMomenta.set( topBar );
   
   // build up the top branch that decays hadronically
-  w  .addDaughter(*lightQ_,   TtFullHadDaughter::LightQ   );
-  w  .addDaughter(*lightQBar_,TtFullHadDaughter::LightQBar   );
+  w  .addDaughter(*lightQ_,    TtFullHadDaughter::LightQ    );
+  w  .addDaughter(*lightQBar_, TtFullHadDaughter::LightQBar );
   addFourMomenta.set( w );
-  top.addDaughter( w,      TtFullHadDaughter::WPlus   );
-  top.addDaughter(*b_,TtFullHadDaughter::B   );
+  top.addDaughter( w,  TtFullHadDaughter::WPlus );
+  top.addDaughter(*b_, TtFullHadDaughter::B     );
   addFourMomenta.set( top );
 
   // build ttbar hypotheses
-  hyp.addDaughter( topBar,       TtFullHadDaughter::TopBar );
-  hyp.addDaughter( top,       TtFullHadDaughter::Top );
+  hyp.addDaughter( topBar, TtFullHadDaughter::TopBar );
+  hyp.addDaughter( top,    TtFullHadDaughter::Top    );
   addFourMomenta.set( hyp );
 
   return hyp;
