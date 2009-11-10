@@ -42,6 +42,9 @@ class TtFullHadHypothesis : public edm::EDProducer {
   /// helper function to construct the proper correction level string for corresponding quarkType,
   /// for unknown quarkTypes an empty string is returned
   std::string jetCorrectionLevel(const std::string& quarkType);
+  /// use one object in a collection to set a ShallowClonePtrCandidate
+  template <typename C>
+  void setCandidate(const edm::Handle<C>& handle, const int& idx, reco::ShallowClonePtrCandidate*& clone);
   /// use one object in a jet collection to set a ShallowClonePtrCandidate with proper jet corrections
   void setCandidate(const edm::Handle<std::vector<pat::Jet> >& handle, const int& idx, reco::ShallowClonePtrCandidate*& clone, const std::string& correctionLevel);
   /// return key
@@ -58,7 +61,7 @@ class TtFullHadHypothesis : public edm::EDProducer {
 
   /// build the event hypothesis key
   virtual void buildKey() = 0;
-  /// build event hypothesis from the reco objects of a semi-leptonic event 
+  /// build event hypothesis from the reco objects of a full-hadronic event 
   virtual void buildHypo(edm::Event& event,
 			 const edm::Handle<std::vector<pat::Jet> >& jets, 
 			 std::vector<int>& jetPartonAssociation,
@@ -86,4 +89,13 @@ class TtFullHadHypothesis : public edm::EDProducer {
   reco::ShallowClonePtrCandidate *lightPBar_;
 };
 
+// has to be placed in the header since otherwise the function template
+// would cause unresolved references in classes derived from this base class
+template<typename C>
+void
+TtFullHadHypothesis::setCandidate(const edm::Handle<C>& handle, const int& idx, reco::ShallowClonePtrCandidate* &clone) {
+  typedef typename C::value_type O;
+  edm::Ptr<O> ptr = edm::Ptr<O>(handle, idx);
+  clone = new reco::ShallowClonePtrCandidate( ptr, ptr->charge(), ptr->p4(), ptr->vertex() );
+}
 #endif
