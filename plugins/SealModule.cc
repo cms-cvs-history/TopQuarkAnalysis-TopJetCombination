@@ -31,4 +31,6 @@ DEFINE_FWK_MODULE(TtFullLepHypKinSolution);
 
 // define fully hadronic event hypotheses
 #include "TopQuarkAnalysis/TopJetCombination/plugins/TtFullHadHypGenMatch.h"
+#include "TopQuarkAnalysis/TopJetCombination/plugins/TtFullHadHypKinFit.h"
 DEFINE_FWK_MODULE(TtFullHadHypGenMatch);
+DEFINE_FWK_MODULE(TtFullHadHypKinFit);
