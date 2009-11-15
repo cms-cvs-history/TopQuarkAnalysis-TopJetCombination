@@ -10,9 +10,16 @@ TtSemiLepHypTrivial::TtSemiLepHypTrivial(const edm::ParameterSet& cfg):
     throw cms::Exception("WrongConfig") 
       << "Parameter maxNJets can not be set to " << maxNJets_ << ". \n"
       << "It has to be larger than 4 or can be set to -1 to take all jets.";
+
+  randNumGen_ = new TRandom3(0); // seed=0 -> computed via a TUUID object -> "unique in space and time"
 }
 
-TtSemiLepHypTrivial::~TtSemiLepHypTrivial() { }
+TtSemiLepHypTrivial::~TtSemiLepHypTrivial()
+{
+
+  delete randNumGen_;
+
+}
 
 void
 TtSemiLepHypTrivial::buildHypo(edm::Event& evt,
@@ -37,18 +44,18 @@ TtSemiLepHypTrivial::buildHypo(edm::Event& evt,
   for(unsigned int i=0; i<maxNJets; ++i)
     jetIndices.push_back( i );
  
-  int lightQ    = jetIndices[ randNumGen_.Integer( jetIndices.size() );
+  int lightQ    = jetIndices[ randNumGen_->Integer( jetIndices.size() ) ];
   jetIndices.erase( std::find(jetIndices.begin(), jetIndices.end(), lightQ) );
  
-  int lightQBar = jetIndices[ randNumGen_.Integer( jetIndices.size() );
+  int lightQBar = jetIndices[ randNumGen_->Integer( jetIndices.size() ) ];
   jetIndices.erase( std::find(jetIndices.begin(), jetIndices.end(), lightQBar) );
  
-  int hadB      = jetIndices[ randNumGen_.Integer( jetIndices.size() );
+  int hadB      = jetIndices[ randNumGen_->Integer( jetIndices.size() ) ];
   jetIndices.erase( std::find(jetIndices.begin(), jetIndices.end(), hadB) );
  
   int lepB      = jetIndices[0];
   if( jetIndices.size() > 1)
-    lepB        = jetIndices[ randNumGen_.Integer( jetIndices.size() );
+    lepB        = jetIndices[ randNumGen_->Integer( jetIndices.size() ) ];
 
   if(lightQ > lightQBar) {
     int itmp = lightQ;

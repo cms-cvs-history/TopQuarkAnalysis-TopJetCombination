@@ -26,7 +26,7 @@ class TtSemiLepHypTrivial : public TtSemiLepHypothesis  {
  private:
 
   /// random number generator object
-  TRandom3 randNumGen_(0);
+  TRandom3 *randNumGen_;
 
   int maxNJets_;
   bool random_;
