@@ -67,22 +67,22 @@ TtSemiLepHypTrivial::buildHypo(edm::Event& evt,
   // add jets
   // -----------------------------------------------------
   if( isValid(lightQ, jets) ){
-    setCandidate(jets, lightQ, lightQ_);
+    setCandidate(jets, lightQ, lightQ_, jetCorrectionLevel("wQuarkMix"));
     match[TtSemiLepEvtPartons::LightQ] = lightQ;
   }
 
   if( isValid(lightQBar, jets) ){
-    setCandidate(jets, lightQBar, lightQBar_);
+    setCandidate(jets, lightQBar, lightQBar_, jetCorrectionLevel("wQuarkMix"));
     match[TtSemiLepEvtPartons::LightQBar] = lightQBar;
   }
 
   if( isValid(hadB, jets) ){
-    setCandidate(jets, hadB, hadronicB_);
+    setCandidate(jets, hadB, hadronicB_, jetCorrectionLevel("bQuark"));
     match[TtSemiLepEvtPartons::HadB] = hadB;
   }
   
   if( isValid(lepB, jets) ){
-    setCandidate(jets, lepB, leptonicB_);
+    setCandidate(jets, lepB, leptonicB_, jetCorrectionLevel("bQuark"));
     match[TtSemiLepEvtPartons::LepB] = lepB;
   }
 
