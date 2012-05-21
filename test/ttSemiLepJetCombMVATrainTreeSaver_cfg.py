@@ -27,7 +27,8 @@ process.options = cms.untracked.PSet(
 )
 
 ## configure geometry & conditions
-process.load("Configuration.StandardSequences.Geometry_cff")
+#process.load("Configuration.StandardSequences.Geometry_cff")
+process.load("Configuration.Geometry.GeometryIdeal_cff")
 process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 
@@ -41,7 +42,7 @@ process.load("PhysicsTools.PatAlgos.patSequences_cff")
 process.load("TopQuarkAnalysis.TopEventProducers.sequences.ttGenEvent_cff")
 
 ## configure ttGenEventFilters
-process.load("TopQuarkAnalysis.TopEventProducers.sequences.ttGenEventFilters_cff")
+process.load("TopQuarkAnalysis.TopSkimming.ttDecayChannelFilters_cff")
 process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.electron = False
 process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.muon     = True
 process.ttSemiLeptonicFilter.allowedTopDecays.decayBranchA.tau      = False
